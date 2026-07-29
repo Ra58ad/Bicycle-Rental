@@ -15,7 +15,7 @@ import com.ra58ad.bicyclerentalsystem.DBConnection;
 
 import java.util.*;
 
-public class Welcome extends JFrame{
+public class Welcome extends CustomerWindow{
 
         private JButton bikesOffered, bikesRented, payment, staffView;
         private JPanel mainPanel, bikesOfferedPanel, bikesRentedPanel, paymentPanel, staffPanel;
@@ -130,6 +130,7 @@ public class Welcome extends JFrame{
 
         setScreen();
     }
+}
 
 
 

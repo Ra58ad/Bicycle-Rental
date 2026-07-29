@@ -64,6 +64,9 @@ public abstract class CustomerWindow extends BRWindow{
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Fetch failed: " + ex.getMessage());
         }
-    
+    }
+
+    protected void addSampleBikes(){
+
     }
 }
