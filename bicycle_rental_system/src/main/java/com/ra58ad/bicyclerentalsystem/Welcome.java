@@ -98,12 +98,7 @@ public class Welcome extends CustomerWindow{
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
 
-        Consumer<JLabel> login = (JLabel l) -> {
-            setVisible(false);
-            new Login();
-        };
         
-        addSampleBikes(login);
 
         mainPanel.add(bikesOfferedPanel, "BikesOffered");
         mainPanel.add(bikesRentedPanel, "BikesRented");
@@ -133,6 +128,15 @@ public class Welcome extends CustomerWindow{
     
 
         setScreen();
+    }
+
+    public void addSamples(){
+        Consumer<JLabel> login = (JLabel l) -> {
+            setVisible(false);
+            new Login();
+        };
+        
+        addSampleBikes(login);
     }
 }
 

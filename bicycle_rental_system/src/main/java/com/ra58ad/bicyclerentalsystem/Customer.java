@@ -84,6 +84,13 @@ public class Customer extends CustomerWindow {
                 }
             }
         };
+
+        // Consumer<JLabel> rent = (JLabel l) -> {
+        //     openRentingPage(ranImg, bike[4]);
+        // };
+        
+        // addSampleBikes(rent);
+            
         bikesOffered.addActionListener(listener);
         bikesRented.addActionListener(listener);
         payment.addActionListener(listener);
@@ -91,28 +98,6 @@ public class Customer extends CustomerWindow {
         setScreen();
     }
 
-    Consumer<JLabel> login = (JLabel l) -> {
-            openRentingPage(ranImg, bike[4]);
-        };
-        
-        addSampleBikes(login);
-
-    // private void addSampleBikes() {
-
-
-    //     for (String[] bike : sb) {
-    //         displaySamples();
-    //         bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-    //             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    
-    //                 openRentingPage(ranImg, bike[4]);
-
-    //             }
-    //         });
-
-    //         bikesOfferedPanel.add(bikeLabel);
-    //     }
-    // }
 
     private void openRentingPage(String resourcePath, String price) {
         JFrame rentingFrame = new JFrame("Rent Bike");
