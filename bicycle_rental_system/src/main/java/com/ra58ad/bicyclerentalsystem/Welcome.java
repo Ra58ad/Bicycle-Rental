@@ -14,6 +14,7 @@ import com.ra58ad.bicyclerentalsystem.Customer.RentedBike;
 import com.ra58ad.bicyclerentalsystem.DBConnection;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Welcome extends CustomerWindow{
 
@@ -21,8 +22,6 @@ public class Welcome extends CustomerWindow{
         private JPanel mainPanel, bikesOfferedPanel, bikesRentedPanel, paymentPanel, staffPanel;
         private ArrayList<RentedBike> rentedBikes = new ArrayList<>();
         private ArrayList<PaymentRecord> paymentRecords = new ArrayList<>();
-        
-
 
         public void display() {
             
@@ -99,7 +98,12 @@ public class Welcome extends CustomerWindow{
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
 
-        addSampleBikes();
+        Consumer<JLabel> login = (JLabel l) -> {
+            setVisible(false);
+            new Login();
+        };
+        
+        addSampleBikes(login);
 
         mainPanel.add(bikesOfferedPanel, "BikesOffered");
         mainPanel.add(bikesRentedPanel, "BikesRented");

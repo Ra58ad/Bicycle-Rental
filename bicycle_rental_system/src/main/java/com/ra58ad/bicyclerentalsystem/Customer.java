@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 import java.sql.*;
 
 public class Customer extends CustomerWindow {
@@ -18,7 +19,6 @@ public class Customer extends CustomerWindow {
     private ArrayList<RentedBike> rentedBikes = new ArrayList<>();
     private ArrayList<PaymentRecord> paymentRecords = new ArrayList<>();
     
-
     public void display() {
         setTitle();
 
@@ -91,23 +91,28 @@ public class Customer extends CustomerWindow {
         setScreen();
     }
 
+    Consumer<JLabel> login = (JLabel l) -> {
+            openRentingPage(ranImg, bike[4]);
+        };
+        
+        addSampleBikes(login);
 
-    private void addSampleBikes() {
+    // private void addSampleBikes() {
 
 
-        for (String[] bike : sb) {
-            displaySamples();
-            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
+    //     for (String[] bike : sb) {
+    //         displaySamples();
+    //         bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+    //             public void mouseClicked(java.awt.event.MouseEvent evt) {
                     
-                    openRentingPage(ranImg, bike[4]);
+    //                 openRentingPage(ranImg, bike[4]);
 
-                }
-            });
+    //             }
+    //         });
 
-            bikesOfferedPanel.add(bikeLabel);
-        }
-    }
+    //         bikesOfferedPanel.add(bikeLabel);
+    //     }
+    // }
 
     private void openRentingPage(String resourcePath, String price) {
         JFrame rentingFrame = new JFrame("Rent Bike");

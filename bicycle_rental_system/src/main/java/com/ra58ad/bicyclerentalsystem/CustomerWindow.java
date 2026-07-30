@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,7 +19,7 @@ public abstract class CustomerWindow extends BRWindow{
     protected String[] imgList = {"img_1.png", "img_2.png", "img_3.png", "img_4.png", "img_5.png"};
     protected JPanel bikesOfferedPanel;
 
-    protected void displaySamples() {
+    protected void addSampleBikes(Consumer<JLabel> fun) {
 
 
         for (String[] bike : sb) {
@@ -32,11 +33,11 @@ public abstract class CustomerWindow extends BRWindow{
             bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
             bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
 
+
+
             bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    setVisible(false);
-                    new Login();
-                    
+                    fun.accept(bikeLabel);
                 }
             });
 
