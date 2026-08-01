@@ -130,7 +130,7 @@ public class Welcome extends CustomerWindow{
         setScreen();
     }
 
-    public void addSamples(){
+    protected void addSamples(){
         Consumer<JLabel> login = (JLabel l) -> {
             setVisible(false);
             new Login();
