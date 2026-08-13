@@ -1,20 +1,29 @@
 package com.ra58ad.bicyclerentalsystem;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import java.sql.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
-import javax.imageio.*;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.ra58ad.bicyclerentalsystem.Customer.PaymentRecord;
 import com.ra58ad.bicyclerentalsystem.Customer.RentedBike;
-import com.ra58ad.bicyclerentalsystem.DBConnection;
-
-import java.util.*;
-import java.util.function.Consumer;
 
 public class Welcome extends CustomerWindow{
 
@@ -98,7 +107,7 @@ public class Welcome extends CustomerWindow{
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
 
-        
+        addSamples();
 
         mainPanel.add(bikesOfferedPanel, "BikesOffered");
         mainPanel.add(bikesRentedPanel, "BikesRented");

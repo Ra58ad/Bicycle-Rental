@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DBConnection.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bicycle_rental_system</a> &gt; <a href="index.source.html" class="el_package">com.ra58ad.bicyclerentalsystem</a> &gt; <span class="el_source">DBConnection.java</span></div><h1>DBConnection.java</h1><pre class="source lang-java linenums">package com.ra58ad.bicyclerentalsystem;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+//Connection class Adapter
+public class DBConnection{
+
+    private static DBConnection _instance;
+    private static Connection connection;
+    
+    //
+    private DBConnection(){
+    }
+    
+    
+    public static DBConnection getInstance(){
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">            if (_instance == null){</span>
+<span class="fc" id="L23">                _instance = new DBConnection();</span>
+<span class="fc" id="L24">                return _instance;</span>
+            } else {
+<span class="nc" id="L26">                return _instance;</span>
+        }
+    }
+    
+    public Connection getConnection(Config config){
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (connection == null){</span>
+            try {
+<span class="nc" id="L33">                connection = DriverManager.getConnection(config.getDB(), config.getUser(), config.getPass());</span>
+<span class="nc" id="L34">            } catch (SQLException e) {</span>
+<span class="nc" id="L35">                JOptionPane.showMessageDialog(new JFrame(), &quot;Database connection failed (welcome): &quot; + e.getMessage());</span>
+<span class="nc" id="L36">                System.exit(1);</span>
+<span class="nc" id="L37">            }</span>
+<span class="nc" id="L38">            return connection;</span>
+        } else {
+<span class="nc" id="L40">            return connection;</span>
+        }
+    }
+    
+    public Connection getConnection(){
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (connection == null){</span>
+            try {
+<span class="nc" id="L47">                connection = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/bicycle_rental_system&quot;, &quot;root&quot;, &quot;root&quot;);</span>
+<span class="nc" id="L48">            } catch (SQLException e) {</span>
+<span class="nc" id="L49">                JOptionPane.showMessageDialog(new JFrame(), &quot;Database connection failed (welcome): &quot; + e.getMessage());</span>
+<span class="nc" id="L50">                System.exit(1);</span>
+<span class="nc" id="L51">            }</span>
+<span class="nc" id="L52">            return connection;</span>
+        } else {
+<span class="nc" id="L54">            return connection;</span>
+        }
+    }
+    
+    // public void prepare(String query){
+    //     try {
+    //         statement = connection.prepareStatement(query);
+    //     } catch (SQLException | NumberFormatException ex) {
+    //         JOptionPane.showMessageDialog(new JFrame(), &quot;Insert failed: &quot; + ex.getMessage());
+    //     }
+    // }
+    // Violates SRP; create new class
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Login.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bicycle_rental_system</a> &gt; <a href="index.source.html" class="el_package">com.ra58ad.bicyclerentalsystem</a> &gt; <span class="el_source">Login.java</span></div><h1>Login.java</h1><pre class="source lang-java linenums">package com.ra58ad.bicyclerentalsystem;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.imageio.*;
+import javax.swing.*;
+import java.util.*;
+
+
+public class Login extends JFrame {
+<span class="nc" id="L18">    public boolean flag = false;</span>
+    JLabel l1;
+    JLabel l2;
+    JLabel l3;
+    JLabel l4;
+    JTextField t1;
+    JTextArea ta;
+    JPasswordField pa;
+    JButton b1;
+    JButton b2;
+    JButton regb;
+    JButton forb;
+    JPanel p1;
+    JPanel p2;
+<span class="nc" id="L32">    private DBConnection db = DBConnection.getInstance();</span>
+
+<span class="nc" id="L34">    public Login()  {</span>
+
+<span class="nc" id="L36">        setTitle(&quot;Bicycle Rental Login&quot;);</span>
+<span class="nc" id="L37">        Insets in = new Insets(0,0,0,0);</span>
+
+<span class="nc" id="L39">        p1 = new JPanel();</span>
+<span class="nc" id="L40">        p1.setLayout(new GridBagLayout());</span>
+<span class="nc" id="L41">        GridBagConstraints gb = new GridBagConstraints();</span>
+<span class="nc" id="L42">        GridBagConstraints bc = new GridBagConstraints();</span>
+
+<span class="nc" id="L44">        l3 = new JLabel(&quot;Sign In&quot;);</span>
+<span class="nc" id="L45">        l3.setFont(new Font(&quot;Serif&quot;, Font.BOLD, 25));</span>
+<span class="nc" id="L46">        l3.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L47">        bc.gridx = 1;</span>
+<span class="nc" id="L48">        bc.gridy = 0;</span>
+<span class="nc" id="L49">        bc.gridheight = 1;</span>
+<span class="nc" id="L50">        bc.gridwidth = 1;</span>
+<span class="nc" id="L51">        bc.weightx = 0.5;</span>
+<span class="nc" id="L52">        bc.weighty = 0.1;</span>
+<span class="nc" id="L53">        in.set(0, 0, 30,50);</span>
+<span class="nc" id="L54">        bc.insets = in;</span>
+<span class="nc" id="L55">        bc.anchor = GridBagConstraints.PAGE_START;</span>
+<span class="nc" id="L56">        p1.add(l3, bc);</span>
+
+<span class="nc" id="L58">        Font fo = new Font(&quot;Times New Roman&quot;, Font.PLAIN, 20);</span>
+
+<span class="nc" id="L60">        l1 = new JLabel(&quot;Email: &quot;);</span>
+<span class="nc" id="L61">        l1.setFont(fo);</span>
+<span class="nc" id="L62">        l1.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L63">        gb.gridx = 0;</span>
+<span class="nc" id="L64">        gb.gridy = 2;</span>
+<span class="nc" id="L65">        gb.gridheight = 1;</span>
+<span class="nc" id="L66">        gb.gridwidth = 1;</span>
+        //gb.weightx = 0.01;
+<span class="nc" id="L68">        gb.weighty = 0.1;</span>
+<span class="nc" id="L69">        in.set(0,0,0,0);</span>
+<span class="nc" id="L70">        gb.insets = in;</span>
+<span class="nc" id="L71">        gb.ipadx = 0;</span>
+<span class="nc" id="L72">        gb.ipady = 0;</span>
+<span class="nc" id="L73">        p1.add(l1,gb);</span>
+
+<span class="nc" id="L75">        t1 = new JTextField();</span>
+<span class="nc" id="L76">        gb.gridx = 0;</span>
+<span class="nc" id="L77">        gb.gridy = 3;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L79">        gb.gridwidth = 3;</span>
+<span class="nc" id="L80">        gb.weighty = 0;</span>
+<span class="nc" id="L81">        gb.ipadx = 400;</span>
+<span class="nc" id="L82">        in.set(10,0,10,0);</span>
+<span class="nc" id="L83">        gb.insets = in;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L86">        p1.add(t1,gb);</span>
+
+<span class="nc" id="L88">        l2 = new JLabel(&quot;Password: &quot;);</span>
+<span class="nc" id="L89">        l2.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L90">        l2.setFont(fo);</span>
+<span class="nc" id="L91">        gb.gridx = 0;</span>
+<span class="nc" id="L92">        gb.gridy = 4;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L94">        gb.gridwidth = 1;</span>
+<span class="nc" id="L95">        in.set(0,0,0,0);</span>
+<span class="nc" id="L96">        gb.insets = in;</span>
+<span class="nc" id="L97">        gb.weighty = 0.1;</span>
+<span class="nc" id="L98">        gb.ipadx = 0;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L101">        p1.add(l2,gb);</span>
+
+<span class="nc" id="L103">        pa = new JPasswordField();</span>
+<span class="nc" id="L104">        gb.gridx = 0;</span>
+<span class="nc" id="L105">        gb.gridy = 5;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L107">        gb.gridwidth = 3;</span>
+<span class="nc" id="L108">        gb.ipadx = 400;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L111">        p1.add(pa,gb);</span>
+
+<span class="nc" id="L113">        regb = new JButton(&quot;Register&quot;);</span>
+<span class="nc" id="L114">        regb.setBackground(Color.decode(&quot;#010D1A&quot;));</span>
+<span class="nc" id="L115">        regb.setForeground(Color.CYAN);</span>
+<span class="nc" id="L116">        regb.setFont(fo);</span>
+<span class="nc" id="L117">        regb.setBorder(BorderFactory.createEmptyBorder());</span>
+<span class="nc" id="L118">        gb.gridx = 0;</span>
+<span class="nc" id="L119">        gb.gridy = 6;</span>
+<span class="nc" id="L120">        gb.gridheight = 1;</span>
+<span class="nc" id="L121">        gb.gridwidth = 2;</span>
+<span class="nc" id="L122">        gb.ipady = 0;</span>
+<span class="nc" id="L123">        gb.ipadx = 100;</span>
+<span class="nc" id="L124">        gb.weightx = 0.1;</span>
+<span class="nc" id="L125">        gb.weighty = 0;</span>
+<span class="nc" id="L126">        in.set(10,0,10,0);</span>
+<span class="nc" id="L127">        gb.insets = in;</span>
+        
+
+        //forb = new JButton(&quot;Forgot password&quot;);
+
+<span class="nc" id="L132">        p2 = new JPanel();</span>
+<span class="nc" id="L133">        b1 = new JButton(&quot;OK&quot;);</span>
+<span class="nc" id="L134">        b1.addActionListener(e -&gt; {</span>
+        
+<span class="nc" id="L136">            String email = t1.getText();</span>
+<span class="nc" id="L137">            String password = new String(pa.getPassword());</span>
+
+<span class="nc" id="L139">            String[] roles = {&quot;Customer (Renter)&quot;, &quot;Staff&quot;, &quot;Manager&quot;};</span>
+<span class="nc" id="L140">            String selectedRole = (String) JOptionPane.showInputDialog(</span>
+                    this,
+                    &quot;Select your role:&quot;,
+                    &quot;Role Selection&quot;,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    roles,
+                    roles[0]
+            );
+
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            if (selectedRole == null) return;</span>
+
+<span class="nc" id="L152">            boolean authenticated = false;</span>
+<span class="nc" id="L153">            String table = &quot;&quot;;</span>
+<span class="nc bnc" id="L154" title="All 4 branches missed.">            switch (selectedRole) {</span>
+                case &quot;Customer (Renter)&quot;:
+<span class="nc" id="L156">                    table = &quot;renter&quot;; break;</span>
+                case &quot;Staff&quot;:
+<span class="nc" id="L158">                    table = &quot;staff&quot;; break;</span>
+                case &quot;Manager&quot;:
+<span class="nc" id="L160">                    table = &quot;manager&quot;; break;</span>
+            }
+
+<span class="nc" id="L163">            authenticated = authenticate(table, email, password);</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            if (authenticated) {</span>
+<span class="nc" id="L165">                JOptionPane.showMessageDialog(this, selectedRole + &quot; login successful!&quot;);</span>
+<span class="nc" id="L166">                dispose();</span>
+<span class="nc" id="L167">                flag = true;</span>
+<span class="nc bnc" id="L168" title="All 4 branches missed.">                switch(table){</span>
+                    case &quot;renter&quot;:
+<span class="nc" id="L170">                        new Customer(); break;</span>
+                    case &quot;staff&quot;:
+<span class="nc" id="L172">                        new Staff(); break;</span>
+                    case &quot;manager&quot;:
+<span class="nc" id="L174">                        new Manager(); break;</span>
+<span class="nc" id="L175">                }</span>
+            } else {
+<span class="nc" id="L177">                JOptionPane.showMessageDialog(this, &quot;Invalid email or password for selected role.&quot;);</span>
+            }
+            
+<span class="nc" id="L180">        });</span>
+
+<span class="nc" id="L182">        b1.setSize(60, 30);</span>
+<span class="nc" id="L183">        p2.add(b1);</span>
+
+<span class="nc" id="L185">        b2 = new JButton(&quot;Cancel&quot;);</span>
+<span class="nc" id="L186">        b2.addActionListener(e -&gt; {</span>
+<span class="nc" id="L187">            dispose();</span>
+<span class="nc" id="L188">            new Welcome();</span>
+<span class="nc" id="L189">        });</span>
+<span class="nc" id="L190">        b2.setSize(60, 30);</span>
+<span class="nc" id="L191">        p2.add(b2);</span>
+
+<span class="nc" id="L193">        regb.addActionListener(e -&gt; {</span>
+<span class="nc" id="L194">            dispose();</span>
+<span class="nc" id="L195">            new Register();</span>
+<span class="nc" id="L196">        });</span>
+<span class="nc" id="L197">        p1.add(regb, gb);</span>
+
+<span class="nc" id="L199">        p1.setOpaque(false);</span>
+<span class="nc" id="L200">        p2.setOpaque(false);</span>
+<span class="nc" id="L201">        add(p1);</span>
+<span class="nc" id="L202">        add(p2, BorderLayout.SOUTH);</span>
+<span class="nc" id="L203">        setResizable(false);</span>
+<span class="nc" id="L204">        getContentPane().setBackground(Color.decode(&quot;#010D1A&quot;));</span>
+<span class="nc" id="L205">        setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
+<span class="nc" id="L206">        setSize(500, 500);</span>
+<span class="nc" id="L207">        pack();</span>
+<span class="nc" id="L208">        setLocationRelativeTo(null);</span>
+        //setExtendedState(MAXIMIZED_BOTH);
+<span class="nc" id="L210">        setVisible(true);</span>
+        
+<span class="nc" id="L212">    }</span>
+
+    private boolean authenticate(String table, String email, String password) {
+        try {
+<span class="nc" id="L216">            Connection conn = db.getConnection();</span>
+<span class="nc" id="L217">            String sql = &quot;SELECT * FROM &quot; + table + &quot; WHERE email=? AND password=?&quot;;</span>
+<span class="nc" id="L218">            PreparedStatement ps = conn.prepareStatement(sql);</span>
+<span class="nc" id="L219">            ps.setString(1, email);</span>
+<span class="nc" id="L220">            ps.setString(2, password);</span>
+<span class="nc" id="L221">            ResultSet rs = ps.executeQuery();</span>
+<span class="nc" id="L222">            boolean found = rs.next();</span>
+<span class="nc" id="L223">            rs.close();</span>
+<span class="nc" id="L224">            ps.close();</span>
+<span class="nc" id="L225">            conn.close();</span>
+<span class="nc" id="L226">            return found;</span>
+<span class="nc" id="L227">        } catch (Exception ex) {</span>
+<span class="nc" id="L228">            ex.printStackTrace();</span>
+<span class="nc" id="L229">            return false;</span>
+        }
+    }
+
+
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

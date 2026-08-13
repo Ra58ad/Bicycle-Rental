@@ -64,7 +64,4 @@ public abstract class CustomerWindow extends BRWindow{
         }
     }
 
-    protected void addSampleBikes(){
-
-    }
 }

@@ -1,6 +1,9 @@
 package com.ra58ad.bicyclerentalsystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -41,7 +44,7 @@ public class DBConnection{
     public Connection getConnection(){
         if (connection == null){
             try {
-                connection = DriverManager.getConnection("bicycle_rental_system", "ramo", "ra58ad");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bicycle_rental_system", "root", "root");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(new JFrame(), "Database connection failed (welcome): " + e.getMessage());
                 System.exit(1);

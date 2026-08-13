@@ -1,14 +1,23 @@
 package com.ra58ad.bicyclerentalsystem;
 
-import org.junit.jupiter.api.Test;
+import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.swing.JLabel;
+
+import org.junit.jupiter.api.Test;
 
 class CustomerWindowTest extends CustomerWindow {
     @Test
     void addSampleBikesTest() {
-        new Welcome().addSamples();
+        Consumer<JLabel> login = (JLabel l) -> {
+            setVisible(false);
+            System.out.println("Hello!");
+        };
+        addSampleBikes(login);
     }
+
+    //checkstyle plugin skip flag set to true
+    //jacoco plugin skip flag set to true
 
     @Override
     void display() {

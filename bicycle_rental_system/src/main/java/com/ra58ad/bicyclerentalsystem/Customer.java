@@ -47,7 +47,7 @@ public class Customer extends CustomerWindow {
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
 
-        addSampleBikes();
+        // addSampleBikes();
 
         mainPanel.add(bikesOfferedPanel, "BikesOffered");
         mainPanel.add(bikesRentedPanel, "BikesRented");

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Welcome.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bicycle_rental_system</a> &gt; <a href="index.source.html" class="el_package">com.ra58ad.bicyclerentalsystem</a> &gt; <span class="el_source">Welcome.java</span></div><h1>Welcome.java</h1><pre class="source lang-java linenums">package com.ra58ad.bicyclerentalsystem;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.function.Consumer;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import com.ra58ad.bicyclerentalsystem.Customer.PaymentRecord;
+import com.ra58ad.bicyclerentalsystem.Customer.RentedBike;
+
+<span class="nc" id="L28">public class Welcome extends CustomerWindow{</span>
+
+        private JButton bikesOffered, bikesRented, payment, staffView;
+        private JPanel mainPanel, bikesOfferedPanel, bikesRentedPanel, paymentPanel, staffPanel;
+<span class="nc" id="L32">        private ArrayList&lt;RentedBike&gt; rentedBikes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L33">        private ArrayList&lt;PaymentRecord&gt; paymentRecords = new ArrayList&lt;&gt;();</span>
+
+        public void display() {
+            
+<span class="nc" id="L37">            JPanel menuPanel = new JPanel();</span>
+<span class="nc" id="L38">            menuPanel.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L39">            menuPanel.setLayout(new GridBagLayout());</span>
+
+<span class="nc" id="L41">            JMenuBar mb = new JMenuBar();</span>
+
+<span class="nc" id="L43">            JMenu bikeMenu = new JMenu(&quot;Bikes&quot;);</span>
+
+<span class="nc" id="L45">            JMenu contactMenu = new JMenu(&quot;Contact&quot;);</span>
+<span class="nc" id="L46">            JMenuItem ad = new JMenuItem(&quot;Address&quot;);</span>
+<span class="nc" id="L47">            JMenuItem form = new JMenuItem(&quot;Contact form&quot;);</span>
+<span class="nc" id="L48">            contactMenu.add(ad);</span>
+<span class="nc" id="L49">            contactMenu.add(form);</span>
+<span class="nc" id="L50">            JMenu logMenu = new JMenu(&quot;Login&quot;);</span>
+<span class="nc" id="L51">            JMenu regMenu = new JMenu(&quot;Register&quot;);</span>
+
+<span class="nc" id="L53">            mb.add(bikeMenu);</span>
+<span class="nc" id="L54">            mb.add(contactMenu);</span>
+<span class="nc" id="L55">            mb.add(logMenu);</span>
+<span class="nc" id="L56">            mb.add(regMenu);</span>
+<span class="nc" id="L57">            gb.gridheight = 1;</span>
+<span class="nc" id="L58">            gb.gridwidth = 1;</span>
+<span class="nc" id="L59">            gb.gridx = 1;</span>
+<span class="nc" id="L60">            gb.gridy = 1;</span>
+<span class="nc" id="L61">            gb.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="nc" id="L62">            menuPanel.add(mb, gb);</span>
+<span class="nc" id="L63">            add(menuPanel, BorderLayout.NORTH);</span>
+
+<span class="nc" id="L65">            JPanel mainPanel1 = new JPanel();</span>
+<span class="nc" id="L66">            mainPanel1.setBackground(Color.CYAN);</span>
+<span class="nc" id="L67">            mainPanel1.setLayout(new GridBagLayout());</span>
+
+            
+
+<span class="nc" id="L71">            JPanel leftPanel = new JPanel();</span>
+<span class="nc" id="L72">            ImageIcon icon = new ImageIcon(&quot;img_1.png&quot;);</span>
+<span class="nc" id="L73">            Image img = icon.getImage();</span>
+<span class="nc" id="L74">            Image scaledImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);</span>
+<span class="nc" id="L75">            ImageIcon scaledIcon = new ImageIcon(scaledImg);</span>
+<span class="nc" id="L76">            JLabel l1 = new JLabel(scaledIcon);</span>
+<span class="nc" id="L77">            leftPanel.add(l1);</span>
+
+<span class="nc" id="L79">            add(leftPanel, BorderLayout.WEST);</span>
+
+<span class="nc" id="L81">            JScrollPane scPanel = new JScrollPane(mainPanel1);</span>
+<span class="nc" id="L82">            add(scPanel);</span>
+
+<span class="nc" id="L84">            fetchBikes();</span>
+
+
+
+<span class="nc" id="L88">        mainPanel = new JPanel(new CardLayout());</span>
+<span class="nc" id="L89">        bikesOfferedPanel = new JPanel(new GridLayout(0, 2, 10, 10));</span>
+<span class="nc" id="L90">        bikesOfferedPanel.setBackground(Color.BLACK);</span>
+<span class="nc" id="L91">        bikesRentedPanel = new JPanel();</span>
+<span class="nc" id="L92">        bikesRentedPanel.setBackground(Color.BLACK);</span>
+<span class="nc" id="L93">        paymentPanel = new JPanel();</span>
+<span class="nc" id="L94">        paymentPanel.setBackground(Color.BLACK);</span>
+
+
+<span class="nc" id="L97">        bikesOffered = new JButton(&quot;Bikes Offered&quot;);</span>
+<span class="nc" id="L98">        bikesRented = new JButton(&quot;Bikes Rented&quot;);</span>
+<span class="nc" id="L99">        payment = new JButton(&quot;Payment&quot;);</span>
+
+<span class="nc" id="L101">        bikesOffered.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L102">        bikesRented.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L103">        payment.setBackground(Color.DARK_GRAY);</span>
+
+<span class="nc" id="L105">        JPanel buttonPanel = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L106">        buttonPanel.add(bikesOffered);</span>
+<span class="nc" id="L107">        buttonPanel.add(bikesRented);</span>
+<span class="nc" id="L108">        buttonPanel.add(payment);</span>
+
+<span class="nc" id="L110">        addSamples();</span>
+
+<span class="nc" id="L112">        mainPanel.add(bikesOfferedPanel, &quot;BikesOffered&quot;);</span>
+<span class="nc" id="L113">        mainPanel.add(bikesRentedPanel, &quot;BikesRented&quot;);</span>
+<span class="nc" id="L114">        mainPanel.add(paymentPanel, &quot;Payment&quot;);</span>
+
+
+<span class="nc" id="L117">        add(buttonPanel, BorderLayout.NORTH);</span>
+<span class="nc" id="L118">        add(mainPanel, BorderLayout.CENTER);</span>
+
+<span class="nc" id="L120">        ActionListener listener = new ActionListener() {</span>
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L124">                CardLayout cl = (CardLayout) mainPanel.getLayout();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">                if (e.getSource() == bikesOffered) {</span>
+<span class="nc" id="L126">                    bikesOffered.setBackground(Color.BLUE);</span>
+<span class="nc" id="L127">                    bikesRented.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L128">                    payment.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L129">                    staffView.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L130">                    cl.show(mainPanel, &quot;BikesOffered&quot;);</span>
+            }
+<span class="nc" id="L132">        }</span>
+        };
+<span class="nc" id="L134">        bikesOffered.addActionListener(listener);</span>
+<span class="nc" id="L135">        bikesRented.addActionListener(listener);</span>
+<span class="nc" id="L136">        payment.addActionListener(listener);</span>
+    
+
+<span class="nc" id="L139">        setScreen();</span>
+<span class="nc" id="L140">    }</span>
+
+    protected void addSamples(){
+<span class="nc" id="L143">        Consumer&lt;JLabel&gt; login = (JLabel l) -&gt; {</span>
+<span class="nc" id="L144">            setVisible(false);</span>
+<span class="nc" id="L145">            new Login();</span>
+<span class="nc" id="L146">        };</span>
+        
+<span class="nc" id="L148">        addSampleBikes(login);</span>
+<span class="nc" id="L149">    }</span>
+}
+
+
+
+    
+
+
+
+
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

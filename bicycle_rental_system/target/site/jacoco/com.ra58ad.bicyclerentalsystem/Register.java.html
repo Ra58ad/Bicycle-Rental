@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Register.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bicycle_rental_system</a> &gt; <a href="index.source.html" class="el_package">com.ra58ad.bicyclerentalsystem</a> &gt; <span class="el_source">Register.java</span></div><h1>Register.java</h1><pre class="source lang-java linenums">package com.ra58ad.bicyclerentalsystem;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import javax.imageio.*;
+import javax.swing.*;
+import java.util.*;
+
+
+public class Register extends JFrame {
+    JLabel l1;
+    JLabel l2;
+    JLabel l3;
+    JLabel l4;
+    JTextField t1;
+    JTextField t2;
+    JTextField t3;
+    JTextField t4;
+    JTextArea ta;
+    JPasswordField pa;
+    JButton b1;
+    JButton b2;
+    JButton regb;
+    JButton forb;
+    JPanel p1;
+    JPanel p2;
+
+<span class="nc" id="L37">    static String DB = &quot;jdbc:mysql://127.0.0.1:3306/bicycle_rental_system&quot;;</span>
+<span class="nc" id="L38">    static String User = &quot;ramo&quot;;</span>
+<span class="nc" id="L39">    static String Password = &quot;ra58ad&quot;;</span>
+    
+<span class="nc" id="L41">    public Register()  {</span>
+
+<span class="nc" id="L43">        setTitle(&quot;Bicycle Rental Register&quot;);</span>
+<span class="nc" id="L44">        Insets in = new Insets(0,0,0,0);</span>
+
+<span class="nc" id="L46">        p1 = new JPanel();</span>
+<span class="nc" id="L47">        p1.setLayout(new GridBagLayout());</span>
+<span class="nc" id="L48">        GridBagConstraints gb = new GridBagConstraints();</span>
+<span class="nc" id="L49">        GridBagConstraints bc = new GridBagConstraints();</span>
+
+<span class="nc" id="L51">        l3 = new JLabel(&quot;Sign Up&quot;);</span>
+<span class="nc" id="L52">        l3.setFont(new Font(&quot;Serif&quot;, Font.BOLD, 25));</span>
+<span class="nc" id="L53">        l3.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L54">        bc.gridx = 1;</span>
+<span class="nc" id="L55">        bc.gridy = 0;</span>
+<span class="nc" id="L56">        bc.gridheight = 1;</span>
+<span class="nc" id="L57">        bc.gridwidth = 1;</span>
+<span class="nc" id="L58">        bc.weightx = 0.5;</span>
+<span class="nc" id="L59">        bc.weighty = 0.1;</span>
+<span class="nc" id="L60">        in.set(0, 0, 30,50);</span>
+<span class="nc" id="L61">        bc.insets = in;</span>
+<span class="nc" id="L62">        bc.anchor = GridBagConstraints.PAGE_START;</span>
+<span class="nc" id="L63">        p1.add(l3, bc);</span>
+
+<span class="nc" id="L65">        Font fo = new Font(&quot;Times New Roman&quot;, Font.PLAIN, 20);</span>
+
+<span class="nc" id="L67">        l1 = new JLabel(&quot;Email: &quot;);</span>
+<span class="nc" id="L68">        l1.setFont(fo);</span>
+<span class="nc" id="L69">        l1.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L70">        gb.gridx = 0;</span>
+<span class="nc" id="L71">        gb.gridy = 2;</span>
+<span class="nc" id="L72">        gb.gridheight = 1;</span>
+<span class="nc" id="L73">        gb.gridwidth = 1;</span>
+        //gb.weightx = 0.01;
+<span class="nc" id="L75">        gb.weighty = 0.1;</span>
+<span class="nc" id="L76">        in.set(0,0,0,0);</span>
+<span class="nc" id="L77">        gb.insets = in;</span>
+<span class="nc" id="L78">        gb.ipadx = 0;</span>
+<span class="nc" id="L79">        gb.ipady = 0;</span>
+<span class="nc" id="L80">        p1.add(l1,gb);</span>
+
+<span class="nc" id="L82">        t1 = new JTextField();</span>
+<span class="nc" id="L83">        gb.gridx = 0;</span>
+<span class="nc" id="L84">        gb.gridy = 3;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L86">        gb.gridwidth = 3;</span>
+<span class="nc" id="L87">        gb.weighty = 0;</span>
+<span class="nc" id="L88">        gb.ipadx = 400;</span>
+<span class="nc" id="L89">        in.set(10,0,10,0);</span>
+<span class="nc" id="L90">        gb.insets = in;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L93">        p1.add(t1,gb);</span>
+
+<span class="nc" id="L95">        l2 = new JLabel(&quot;Password: &quot;);</span>
+<span class="nc" id="L96">        l2.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L97">        l2.setFont(fo);</span>
+<span class="nc" id="L98">        gb.gridx = 0;</span>
+<span class="nc" id="L99">        gb.gridy = 4;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L101">        gb.gridwidth = 1;</span>
+<span class="nc" id="L102">        in.set(0,0,0,0);</span>
+<span class="nc" id="L103">        gb.insets = in;</span>
+<span class="nc" id="L104">        gb.weighty = 0.1;</span>
+<span class="nc" id="L105">        gb.ipadx = 0;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L108">        p1.add(l2,gb);</span>
+
+<span class="nc" id="L110">        pa = new JPasswordField();</span>
+<span class="nc" id="L111">        gb.gridx = 0;</span>
+<span class="nc" id="L112">        gb.gridy = 5;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L114">        gb.gridwidth = 3;</span>
+<span class="nc" id="L115">        gb.ipadx = 400;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L118">        p1.add(pa,gb);</span>
+
+<span class="nc" id="L120">        l3 = new JLabel(&quot;Name: &quot;);</span>
+<span class="nc" id="L121">        l3.setFont(fo);</span>
+<span class="nc" id="L122">        l3.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L123">        gb.gridx = 0;</span>
+<span class="nc" id="L124">        gb.gridy = 6;</span>
+<span class="nc" id="L125">        gb.gridheight = 1;</span>
+<span class="nc" id="L126">        gb.gridwidth = 1;</span>
+        //gb.weightx = 0.01;
+<span class="nc" id="L128">        gb.weighty = 0.1;</span>
+<span class="nc" id="L129">        in.set(0,0,0,0);</span>
+<span class="nc" id="L130">        gb.insets = in;</span>
+<span class="nc" id="L131">        gb.ipadx = 0;</span>
+<span class="nc" id="L132">        gb.ipady = 0;</span>
+<span class="nc" id="L133">        p1.add(l3,gb);</span>
+
+<span class="nc" id="L135">        t3 = new JTextField();</span>
+<span class="nc" id="L136">        gb.gridx = 0;</span>
+<span class="nc" id="L137">        gb.gridy = 7;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L139">        gb.gridwidth = 3;</span>
+<span class="nc" id="L140">        gb.weighty = 0;</span>
+<span class="nc" id="L141">        gb.ipadx = 400;</span>
+<span class="nc" id="L142">        in.set(10,0,10,0);</span>
+<span class="nc" id="L143">        gb.insets = in;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L146">        p1.add(t3,gb);</span>
+
+<span class="nc" id="L148">        l4 = new JLabel(&quot;Phone number: &quot;);</span>
+<span class="nc" id="L149">        l4.setForeground(Color.decode(&quot;#A85307&quot;));</span>
+<span class="nc" id="L150">        l4.setFont(fo);</span>
+<span class="nc" id="L151">        gb.gridx = 0;</span>
+<span class="nc" id="L152">        gb.gridy = 8;</span>
+<span class="nc" id="L153">        gb.gridheight = 1;</span>
+<span class="nc" id="L154">        gb.gridwidth = 1;</span>
+<span class="nc" id="L155">        in.set(0,0,0,0);</span>
+<span class="nc" id="L156">        gb.insets = in;</span>
+<span class="nc" id="L157">        gb.weighty = 0.1;</span>
+<span class="nc" id="L158">        gb.ipadx = 0;</span>
+<span class="nc" id="L159">        gb.ipady = 0;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L162">        p1.add(l4,gb);</span>
+
+<span class="nc" id="L164">        t4 = new JTextField();</span>
+<span class="nc" id="L165">        gb.gridx = 0;</span>
+<span class="nc" id="L166">        gb.gridy = 9;</span>
+        //gb.gridheight = 1;
+<span class="nc" id="L168">        gb.gridwidth = 3;</span>
+<span class="nc" id="L169">        gb.ipadx = 400;</span>
+<span class="nc" id="L170">        in.set(10,0,10,0);</span>
+<span class="nc" id="L171">        gb.insets = in;</span>
+        //gb.weightx = 0.5;
+        //gb.weighty = 0.1;
+<span class="nc" id="L174">        p1.add(t4,gb);</span>
+
+        
+
+<span class="nc" id="L178">        regb = new JButton(&quot;Login&quot;);</span>
+<span class="nc" id="L179">        regb.setBackground(Color.decode(&quot;#010D1A&quot;));</span>
+<span class="nc" id="L180">        regb.setForeground(Color.CYAN);</span>
+<span class="nc" id="L181">        regb.setFont(fo);</span>
+<span class="nc" id="L182">        regb.setBorder(BorderFactory.createEmptyBorder());</span>
+<span class="nc" id="L183">        gb.gridx = 0;</span>
+<span class="nc" id="L184">        gb.gridy = 10;</span>
+<span class="nc" id="L185">        gb.gridheight = 1;</span>
+<span class="nc" id="L186">        gb.gridwidth = 2;</span>
+<span class="nc" id="L187">        gb.ipady = 0;</span>
+<span class="nc" id="L188">        gb.ipadx = 100;</span>
+<span class="nc" id="L189">        gb.weightx = 0.1;</span>
+<span class="nc" id="L190">        gb.weighty = 0;</span>
+<span class="nc" id="L191">        in.set(10,0,10,0);</span>
+<span class="nc" id="L192">        gb.insets = in;</span>
+        
+
+        //forb = new JButton(&quot;Forgot password&quot;);
+
+<span class="nc" id="L197">        p2 = new JPanel();</span>
+<span class="nc" id="L198">        b1 = new JButton(&quot;OK&quot;);</span>
+<span class="nc" id="L199">        b1.addActionListener(e -&gt; {</span>
+        
+<span class="nc" id="L201">            String email = t1.getText();</span>
+<span class="nc" id="L202">            String password = new String(pa.getPassword());</span>
+<span class="nc" id="L203">            String name = t3.getText();</span>
+<span class="nc" id="L204">            String phone = t4.getText();</span>
+<span class="nc" id="L205">            register(name, email, phone, password);</span>
+<span class="nc" id="L206">            JOptionPane.showMessageDialog(this, &quot;Registered successfully!&quot;);</span>
+            
+<span class="nc" id="L208">            dispose();</span>
+<span class="nc" id="L209">            new Customer();</span>
+<span class="nc" id="L210">        });</span>
+
+<span class="nc" id="L212">        b1.setSize(60, 30);</span>
+<span class="nc" id="L213">        p2.add(b1);</span>
+
+<span class="nc" id="L215">        b2 = new JButton(&quot;Cancel&quot;);</span>
+<span class="nc" id="L216">        b2.addActionListener(e -&gt; {</span>
+<span class="nc" id="L217">            dispose();</span>
+<span class="nc" id="L218">            new Welcome();</span>
+<span class="nc" id="L219">        });</span>
+<span class="nc" id="L220">        b2.setSize(60, 30);</span>
+<span class="nc" id="L221">        p2.add(b2);</span>
+
+<span class="nc" id="L223">        regb.addActionListener(e -&gt; {</span>
+<span class="nc" id="L224">            dispose();</span>
+<span class="nc" id="L225">            new Login();</span>
+<span class="nc" id="L226">        });</span>
+<span class="nc" id="L227">        p1.add(regb, gb);</span>
+
+<span class="nc" id="L229">        p1.setOpaque(false);</span>
+<span class="nc" id="L230">        p2.setOpaque(false);</span>
+<span class="nc" id="L231">        add(p1);</span>
+<span class="nc" id="L232">        add(p2, BorderLayout.SOUTH);</span>
+<span class="nc" id="L233">        setResizable(false);</span>
+<span class="nc" id="L234">        getContentPane().setBackground(Color.decode(&quot;#010D1A&quot;));</span>
+<span class="nc" id="L235">        setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
+<span class="nc" id="L236">        setSize(500, 500);</span>
+<span class="nc" id="L237">        pack();</span>
+<span class="nc" id="L238">        setLocationRelativeTo(null);</span>
+        //setExtendedState(MAXIMIZED_BOTH);
+<span class="nc" id="L240">        setVisible(true);</span>
+        
+<span class="nc" id="L242">    }</span>
+
+    private void register(String name, String email, String phone, String password){
+<span class="nc" id="L245">        String sql = &quot;INSERT INTO renter (full_name, email, phone, password, registered_at) VALUES (?, ?, ?, ?, ?)&quot;;</span>
+<span class="nc" id="L246">        try (Connection conn = DriverManager.getConnection(DB, User, Password);</span>
+<span class="nc" id="L247">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L248">            stmt.setString(1, name);</span>
+<span class="nc" id="L249">            stmt.setString(2, email);</span>
+<span class="nc" id="L250">            stmt.setString(3, phone);</span>
+<span class="nc" id="L251">            stmt.setString(4, password);</span>
+<span class="nc" id="L252">            stmt.setDate(5, java.sql.Date.valueOf(LocalDate.now()));</span>
+<span class="nc" id="L253">            stmt.executeUpdate();</span>
+<span class="nc" id="L254">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L255">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L256">        }</span>
+<span class="nc" id="L257">    }</span>
+    }
+
+
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

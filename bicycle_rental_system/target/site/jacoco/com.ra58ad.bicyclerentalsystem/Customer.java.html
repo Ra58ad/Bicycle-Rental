@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Customer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bicycle_rental_system</a> &gt; <a href="index.source.html" class="el_package">com.ra58ad.bicyclerentalsystem</a> &gt; <span class="el_source">Customer.java</span></div><h1>Customer.java</h1><pre class="source lang-java linenums">package com.ra58ad.bicyclerentalsystem;
+
+import javax.swing.*;
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.sql.*;
+
+<span class="nc" id="L14">public class Customer extends CustomerWindow {</span>
+
+    
+    private JButton bikesOffered, bikesRented, payment, staffView;
+    private JPanel mainPanel, bikesRentedPanel, paymentPanel, staffPanel;
+<span class="nc" id="L19">    private ArrayList&lt;RentedBike&gt; rentedBikes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L20">    private ArrayList&lt;PaymentRecord&gt; paymentRecords = new ArrayList&lt;&gt;();</span>
+    
+    public void display() {
+<span class="nc" id="L23">        setTitle();</span>
+
+<span class="nc" id="L25">        fetchBikes();</span>
+
+
+<span class="nc" id="L28">        mainPanel = new JPanel(new CardLayout());</span>
+<span class="nc" id="L29">        bikesOfferedPanel = new JPanel(new GridLayout(0, 2, 10, 10));</span>
+<span class="nc" id="L30">        bikesOfferedPanel.setBackground(Color.BLACK);</span>
+<span class="nc" id="L31">        bikesRentedPanel = new JPanel();</span>
+<span class="nc" id="L32">        bikesRentedPanel.setBackground(Color.BLACK);</span>
+<span class="nc" id="L33">        paymentPanel = new JPanel();</span>
+<span class="nc" id="L34">        paymentPanel.setBackground(Color.BLACK);</span>
+
+
+<span class="nc" id="L37">        bikesOffered = new JButton(&quot;Bikes Offered&quot;);</span>
+<span class="nc" id="L38">        bikesRented = new JButton(&quot;Bikes Rented&quot;);</span>
+<span class="nc" id="L39">        payment = new JButton(&quot;Payment&quot;);</span>
+
+<span class="nc" id="L41">        bikesOffered.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L42">        bikesRented.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L43">        payment.setBackground(Color.DARK_GRAY);</span>
+
+<span class="nc" id="L45">        JPanel buttonPanel = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L46">        buttonPanel.add(bikesOffered);</span>
+<span class="nc" id="L47">        buttonPanel.add(bikesRented);</span>
+<span class="nc" id="L48">        buttonPanel.add(payment);</span>
+
+        // addSampleBikes();
+
+<span class="nc" id="L52">        mainPanel.add(bikesOfferedPanel, &quot;BikesOffered&quot;);</span>
+<span class="nc" id="L53">        mainPanel.add(bikesRentedPanel, &quot;BikesRented&quot;);</span>
+<span class="nc" id="L54">        mainPanel.add(paymentPanel, &quot;Payment&quot;);</span>
+
+
+<span class="nc" id="L57">        add(buttonPanel, BorderLayout.NORTH);</span>
+<span class="nc" id="L58">        add(mainPanel, BorderLayout.CENTER);</span>
+
+<span class="nc" id="L60">        ActionListener listener = new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L63">                CardLayout cl = (CardLayout) mainPanel.getLayout();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                if (e.getSource() == bikesOffered) {</span>
+<span class="nc" id="L65">                    bikesOffered.setBackground(Color.BLUE);</span>
+<span class="nc" id="L66">                    bikesRented.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L67">                    payment.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L68">                    staffView.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L69">                    cl.show(mainPanel, &quot;BikesOffered&quot;);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                } else if (e.getSource() == bikesRented) {</span>
+<span class="nc" id="L71">                    bikesRented.setBackground(Color.BLUE);</span>
+<span class="nc" id="L72">                    bikesOffered.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L73">                    payment.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L74">                    staffView.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L75">                    showRentedBikes();</span>
+<span class="nc" id="L76">                    cl.show(mainPanel, &quot;BikesRented&quot;);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                } else if (e.getSource() == payment) {</span>
+<span class="nc" id="L78">                    payment.setBackground(Color.BLUE);</span>
+<span class="nc" id="L79">                    bikesOffered.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L80">                    bikesRented.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L81">                    staffView.setBackground(Color.DARK_GRAY);</span>
+<span class="nc" id="L82">                    showPaymentRecords();</span>
+<span class="nc" id="L83">                    cl.show(mainPanel, &quot;Payment&quot;);</span>
+                }
+<span class="nc" id="L85">            }</span>
+        };
+
+        // Consumer&lt;JLabel&gt; rent = (JLabel l) -&gt; {
+        //     openRentingPage(ranImg, bike[4]);
+        // };
+        
+        // addSampleBikes(rent);
+            
+<span class="nc" id="L94">        bikesOffered.addActionListener(listener);</span>
+<span class="nc" id="L95">        bikesRented.addActionListener(listener);</span>
+<span class="nc" id="L96">        payment.addActionListener(listener);</span>
+
+<span class="nc" id="L98">        setScreen();</span>
+<span class="nc" id="L99">    }</span>
+
+
+    private void openRentingPage(String resourcePath, String price) {
+<span class="nc" id="L103">        JFrame rentingFrame = new JFrame(&quot;Rent Bike&quot;);</span>
+<span class="nc" id="L104">        rentingFrame.setSize(400, 500);</span>
+<span class="nc" id="L105">        rentingFrame.setLocationRelativeTo(null);</span>
+<span class="nc" id="L106">        JPanel rentingPanel = new JPanel();</span>
+<span class="nc" id="L107">        rentingPanel.setLayout(new BoxLayout(rentingPanel, BoxLayout.Y_AXIS));</span>
+<span class="nc" id="L108">        rentingPanel.setBackground(Color.LIGHT_GRAY);</span>
+
+<span class="nc" id="L110">        java.net.URL imgURL = getClass().getResource(resourcePath);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (imgURL == null) {</span>
+<span class="nc" id="L112">            System.err.println(&quot;Couldn't find file: &quot; + resourcePath);</span>
+<span class="nc" id="L113">            return;</span>
+        }
+
+<span class="nc" id="L116">        ImageIcon icon = new ImageIcon(imgURL);</span>
+<span class="nc" id="L117">        Image img = icon.getImage();</span>
+<span class="nc" id="L118">        Image scaledImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);</span>
+<span class="nc" id="L119">        ImageIcon scaledIcon = new ImageIcon(scaledImg);</span>
+
+<span class="nc" id="L121">        JLabel bikeImageLabel = new JLabel(scaledIcon);</span>
+<span class="nc" id="L122">        bikeImageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L123">        rentingPanel.add(bikeImageLabel);</span>
+
+<span class="nc" id="L125">        JLabel priceLabel = new JLabel(&quot;Price: &quot; + price);</span>
+<span class="nc" id="L126">        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L127">        rentingPanel.add(priceLabel);</span>
+
+
+<span class="nc" id="L130">        JPanel durationPanel = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L131">        durationPanel.add(new JLabel(&quot;Start Date:&quot;));</span>
+<span class="nc" id="L132">        JTextField startDateField = new JTextField(10);</span>
+<span class="nc" id="L133">        durationPanel.add(startDateField);</span>
+<span class="nc" id="L134">        durationPanel.add(new JLabel(&quot;Return Date:&quot;));</span>
+<span class="nc" id="L135">        JTextField returnDateField = new JTextField(10);</span>
+<span class="nc" id="L136">        durationPanel.add(returnDateField);</span>
+<span class="nc" id="L137">        rentingPanel.add(durationPanel);</span>
+
+<span class="nc" id="L139">        JPanel paymentPanel = new JPanel();</span>
+<span class="nc" id="L140">        paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));</span>
+
+<span class="nc" id="L142">        JLabel paymentLabel = new JLabel(&quot;Choose Payment Method:&quot;);</span>
+<span class="nc" id="L143">        paymentLabel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L144">        paymentPanel.add(paymentLabel);</span>
+
+<span class="nc" id="L146">        JRadioButton teleBirr = new JRadioButton(&quot;Telebirr&quot;);</span>
+<span class="nc" id="L147">        JRadioButton mobileBanking = new JRadioButton(&quot;Mobile Banking&quot;);</span>
+
+<span class="nc" id="L149">        ButtonGroup paymentGroup = new ButtonGroup();</span>
+<span class="nc" id="L150">        paymentGroup.add(teleBirr);</span>
+<span class="nc" id="L151">        paymentGroup.add(mobileBanking);</span>
+
+<span class="nc" id="L153">        paymentPanel.add(teleBirr);</span>
+<span class="nc" id="L154">        paymentPanel.add(mobileBanking);</span>
+<span class="nc" id="L155">        rentingPanel.add(paymentPanel);</span>
+
+<span class="nc" id="L157">        JButton rentButton = new JButton(&quot;Rent Now&quot;);</span>
+<span class="nc" id="L158">        rentButton.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L159">        rentingPanel.add(rentButton);</span>
+
+<span class="nc" id="L161">        rentButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L162">            String startDate = startDateField.getText().trim();</span>
+<span class="nc" id="L163">            String returnDate = returnDateField.getText().trim();</span>
+<span class="nc bnc" id="L164" title="All 8 branches missed.">            if (startDate.isEmpty() || returnDate.isEmpty() || (!teleBirr.isSelected() &amp;&amp; !mobileBanking.isSelected())) {</span>
+<span class="nc" id="L165">                JOptionPane.showMessageDialog(rentingFrame, &quot;Please fill all fields and select payment method&quot;);</span>
+<span class="nc" id="L166">                return;</span>
+            }
+<span class="nc" id="L168">            rentedBikes.add(new RentedBike(&quot;&quot;, price, startDate, returnDate));</span>
+<span class="nc" id="L169">            paymentRecords.add(new PaymentRecord(price, false));</span>
+<span class="nc" id="L170">            JOptionPane.showMessageDialog(rentingFrame, &quot;Bike rented successfully!&quot;);</span>
+<span class="nc" id="L171">            rentingFrame.dispose();</span>
+<span class="nc" id="L172">        });</span>
+
+<span class="nc" id="L174">        rentingFrame.add(rentingPanel);</span>
+        
+
+<span class="nc" id="L177">        rentingFrame.setVisible(true);</span>
+<span class="nc" id="L178">    }</span>
+
+    private void showRentedBikes() {
+<span class="nc" id="L181">        bikesRentedPanel.removeAll();</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        for (RentedBike rb : rentedBikes) {</span>
+<span class="nc" id="L183">            String info = &quot;&lt;html&gt;Bike: &quot; + rb.price + &quot;&lt;br&gt;From: &quot; + rb.startDate + &quot;&lt;br&gt;To: &quot; + rb.returnDate + &quot;&lt;/html&gt;&quot;;</span>
+<span class="nc" id="L184">            JLabel label = new JLabel(info);</span>
+<span class="nc" id="L185">            label.setForeground(Color.WHITE);</span>
+<span class="nc" id="L186">            bikesRentedPanel.add(label);</span>
+<span class="nc" id="L187">        }</span>
+<span class="nc" id="L188">        mainPanel.revalidate();</span>
+<span class="nc" id="L189">        mainPanel.repaint();</span>
+<span class="nc" id="L190">    }</span>
+
+    private void showPaymentRecords() {
+<span class="nc" id="L193">        paymentPanel.removeAll();</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        for (PaymentRecord pr : paymentRecords) {</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            String info = &quot;&lt;html&gt;Amount: &quot; + pr.amount + &quot;&lt;br&gt;Due: &quot; + (pr.isPaid ? &quot;No&quot; : &quot;Yes&quot;) + &quot;&lt;/html&gt;&quot;;</span>
+<span class="nc" id="L196">            JLabel label = new JLabel(info);</span>
+<span class="nc" id="L197">            label.setForeground(Color.WHITE);</span>
+<span class="nc" id="L198">            paymentPanel.add(label);</span>
+<span class="nc" id="L199">        }</span>
+<span class="nc" id="L200">        mainPanel.revalidate();</span>
+<span class="nc" id="L201">        mainPanel.repaint();</span>
+<span class="nc" id="L202">    }</span>
+    
+    
+
+    class Bike {
+        String imagePath;
+        String price;
+        String accessories;
+
+<span class="nc" id="L211">        Bike(String imagePath, String price, String accessories) {</span>
+<span class="nc" id="L212">            this.imagePath = imagePath;</span>
+<span class="nc" id="L213">            this.price = price;</span>
+<span class="nc" id="L214">            this.accessories = accessories;</span>
+<span class="nc" id="L215">        }</span>
+    }
+
+    class RentedBike {
+        String imagePath;
+        String price;
+        String startDate;
+        String returnDate;
+
+<span class="nc" id="L224">        RentedBike(String imagePath, String price, String startDate, String returnDate) {</span>
+<span class="nc" id="L225">            this.imagePath = imagePath;</span>
+<span class="nc" id="L226">            this.price = price;</span>
+<span class="nc" id="L227">            this.startDate = startDate;</span>
+<span class="nc" id="L228">            this.returnDate = returnDate;</span>
+<span class="nc" id="L229">        }</span>
+    }
+
+    class PaymentRecord {
+        String amount;
+        boolean isPaid;
+
+<span class="nc" id="L236">        PaymentRecord(String amount, boolean isPaid) {</span>
+<span class="nc" id="L237">            this.amount = amount;</span>
+<span class="nc" id="L238">            this.isPaid = isPaid;</span>
+<span class="nc" id="L239">        }</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

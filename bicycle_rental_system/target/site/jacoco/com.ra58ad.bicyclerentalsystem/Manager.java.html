@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Manager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bicycle_rental_system</a> &gt; <a href="index.source.html" class="el_package">com.ra58ad.bicyclerentalsystem</a> &gt; <span class="el_source">Manager.java</span></div><h1>Manager.java</h1><pre class="source lang-java linenums">package com.ra58ad.bicyclerentalsystem;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.swing.*;
+import java.util.*;
+
+public class Manager extends JFrame implements ActionListener {
+
+<span class="nc" id="L14">    String[] cblist = {&quot;bicycle&quot;,&quot;accessory&quot;, &quot;customer&quot;, &quot;staff&quot;, &quot;supplier&quot;, &quot;payment&quot;};</span>
+<span class="nc" id="L15">    private DBConnection db = DBConnection.getInstance();</span>
+
+
+<span class="nc" id="L18">    public Manager() {</span>
+        
+<span class="nc" id="L20">        setTitle(&quot;Manager&quot;);</span>
+
+<span class="nc" id="L22">        JPanel signPanel = new JPanel();</span>
+<span class="nc" id="L23">        signPanel.setBackground(Color.GRAY);</span>
+<span class="nc" id="L24">        signPanel.setBorder(BorderFactory.createEmptyBorder());</span>
+<span class="nc" id="L25">        signPanel.setLayout(new GridBagLayout());</span>
+<span class="nc" id="L26">        GridBagConstraints gb = new GridBagConstraints();</span>
+<span class="nc" id="L27">        JButton signButton = new JButton(&quot;Sign Out&quot;);</span>
+<span class="nc" id="L28">        signButton.addActionListener(e-&gt;{</span>
+<span class="nc" id="L29">            new Welcome();</span>
+<span class="nc" id="L30">            dispose();</span>
+<span class="nc" id="L31">        });</span>
+
+<span class="nc" id="L33">        gb.anchor = GridBagConstraints.LINE_END;</span>
+<span class="nc" id="L34">        gb.gridx = 1;</span>
+<span class="nc" id="L35">        gb.gridy = 1;</span>
+<span class="nc" id="L36">        gb.gridheight = 1;</span>
+<span class="nc" id="L37">        gb.gridwidth = 1;</span>
+<span class="nc" id="L38">        gb.weightx=0.2;</span>
+<span class="nc" id="L39">        gb.ipadx = 20;</span>
+<span class="nc" id="L40">        signPanel.add(signButton, gb);</span>
+<span class="nc" id="L41">        add(signPanel, BorderLayout.NORTH);        </span>
+        
+<span class="nc" id="L43">        JPanel mp = new JPanel();</span>
+<span class="nc" id="L44">        mp.setLayout(new BoxLayout(mp, BoxLayout.PAGE_AXIS));</span>
+        
+
+<span class="nc" id="L47">        JPanel p1 = new JPanel();</span>
+<span class="nc" id="L48">        p1.setBackground(Color.GRAY);</span>
+<span class="nc" id="L49">        JTextArea ta1 = new JTextArea(5,30);</span>
+
+<span class="nc" id="L51">        JPanel bp1 = new JPanel();</span>
+<span class="nc" id="L52">        JButton b1 = new JButton(&quot;Insert&quot;);</span>
+<span class="nc" id="L53">        JButton b2 = new JButton(&quot;Update&quot;);</span>
+<span class="nc" id="L54">        JButton b3 = new JButton(&quot;Delete&quot;);</span>
+<span class="nc" id="L55">        JButton b4 = new JButton(&quot;See all records&quot;);</span>
+<span class="nc" id="L56">        JButton b5 = new JButton(&quot;Clear records&quot;);</span>
+<span class="nc" id="L57">        bp1.setLayout(new BoxLayout(bp1, BoxLayout.PAGE_AXIS));</span>
+<span class="nc" id="L58">        bp1.setBackground(Color.GRAY);</span>
+<span class="nc" id="L59">        bp1.add(b1);</span>
+<span class="nc" id="L60">        bp1.add(b2);</span>
+<span class="nc" id="L61">        bp1.add(b3);</span>
+<span class="nc" id="L62">        bp1.add(b4);</span>
+<span class="nc" id="L63">        bp1.add(b5);</span>
+
+<span class="nc" id="L65">        JComboBox&lt;String&gt; combo = new JComboBox&lt;&gt;(cblist);</span>
+<span class="nc" id="L66">        combo.addActionListener(this);</span>
+
+<span class="nc" id="L68">        p1.add(ta1);</span>
+<span class="nc" id="L69">        p1.add(bp1);</span>
+<span class="nc" id="L70">        p1.add(combo);</span>
+
+<span class="nc" id="L72">        mp.add(p1);</span>
+
+<span class="nc" id="L74">        JScrollPane sp = new JScrollPane(mp);</span>
+<span class="nc" id="L75">        add(sp);</span>
+
+<span class="nc" id="L77">        setResizable(true);</span>
+<span class="nc" id="L78">        setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
+<span class="nc" id="L79">        pack();</span>
+<span class="nc" id="L80">        setLocationRelativeTo(null);</span>
+<span class="nc" id="L81">        setSize(550, 300);</span>
+<span class="nc" id="L82">        setVisible(true);</span>
+    
+<span class="nc" id="L84">        b1.addActionListener(e -&gt; {</span>
+<span class="nc" id="L85">            String table = combo.getSelectedItem().toString();</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (table.equalsIgnoreCase(&quot;bicycle&quot;)) {</span>
+<span class="nc" id="L87">                String model = JOptionPane.showInputDialog(this, &quot;Enter model:&quot;);</span>
+<span class="nc" id="L88">                String type = JOptionPane.showInputDialog(this, &quot;Enter type:&quot;);</span>
+<span class="nc" id="L89">                String status = JOptionPane.showInputDialog(this, &quot;Enter status:&quot;);</span>
+<span class="nc" id="L90">                String priceStr = JOptionPane.showInputDialog(this, &quot;Enter price per hour:&quot;);</span>
+<span class="nc" id="L91">                String locationIdStr = JOptionPane.showInputDialog(this, &quot;Enter location_id:&quot;);</span>
+<span class="nc" id="L92">                String supplierIdStr = JOptionPane.showInputDialog(this, &quot;Enter supplier_id:&quot;);</span>
+<span class="nc" id="L93">                String accessoryIdStr = JOptionPane.showInputDialog(this, &quot;Enter accessory_id:&quot;);</span>
+<span class="nc" id="L94">                String addedByStr = JOptionPane.showInputDialog(this, &quot;Enter added_by:&quot;);</span>
+<span class="nc bnc" id="L95" title="All 4 branches missed.">                if (model != null &amp;&amp; !model.isEmpty()) {</span>
+<span class="nc" id="L96">                    insertBicycle(model, type, status, priceStr, locationIdStr, supplierIdStr, accessoryIdStr, addedByStr);</span>
+                }
+<span class="nc bnc" id="L98" title="All 2 branches missed.">            } else if (table.equalsIgnoreCase(&quot;customer&quot;)) {</span>
+<span class="nc" id="L99">                String name = JOptionPane.showInputDialog(this, &quot;Enter name:&quot;);</span>
+<span class="nc" id="L100">                String email = JOptionPane.showInputDialog(this, &quot;Enter email:&quot;);</span>
+<span class="nc" id="L101">                String phone = JOptionPane.showInputDialog(this, &quot;Enter phone:&quot;);</span>
+<span class="nc" id="L102">                String password = JOptionPane.showInputDialog(this, &quot;Enter password:&quot;);</span>
+<span class="nc" id="L103">                LocalDate temp = LocalDate.now();</span>
+<span class="nc" id="L104">                java.sql.Date regDate = java.sql.Date.valueOf(temp);</span>
+<span class="nc bnc" id="L105" title="All 4 branches missed.">                if (name != null &amp;&amp; !name.isEmpty()) {</span>
+<span class="nc" id="L106">                    insertCustomer(name, email, phone, password, regDate);</span>
+                }
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            } else if (table.equalsIgnoreCase(&quot;accessory&quot;)) {</span>
+<span class="nc" id="L109">                String type = JOptionPane.showInputDialog(this, &quot;Enter type:&quot;);</span>
+<span class="nc" id="L110">                String priceStr = JOptionPane.showInputDialog(this, &quot;Enter price:&quot;);</span>
+<span class="nc bnc" id="L111" title="All 4 branches missed.">                if (type != null &amp;&amp; !type.isEmpty()) {</span>
+<span class="nc" id="L112">                    insertAccessory(type, priceStr);</span>
+                }
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            } else if(table.equalsIgnoreCase(&quot;staff&quot;)) {</span>
+<span class="nc" id="L115">                String name = JOptionPane.showInputDialog(this, &quot;Enter name:&quot;);</span>
+<span class="nc" id="L116">                String email = JOptionPane.showInputDialog(this, &quot;Enter email:&quot;);</span>
+<span class="nc" id="L117">                String phone = JOptionPane.showInputDialog(this, &quot;Enter phone:&quot;);</span>
+<span class="nc" id="L118">                String password = JOptionPane.showInputDialog(this, &quot;Enter password:&quot;);</span>
+<span class="nc" id="L119">                String role = JOptionPane.showInputDialog(this, &quot;Enter password:&quot;);</span>
+<span class="nc" id="L120">                String manId = JOptionPane.showInputDialog(this, &quot;Enter Manager ID: &quot;);</span>
+<span class="nc bnc" id="L121" title="All 4 branches missed.">                if (name != null &amp;&amp; !name.isEmpty()) {</span>
+<span class="nc" id="L122">                    insertStaff(name, email, phone, password, role, manId);</span>
+                }
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            } else if(table.equalsIgnoreCase(&quot;supplier&quot;)) {</span>
+<span class="nc" id="L125">                String name = JOptionPane.showInputDialog(this, &quot;Enter name:&quot;);</span>
+<span class="nc" id="L126">                String compName = JOptionPane.showInputDialog(this, &quot;Enter company name&quot;);</span>
+<span class="nc" id="L127">                String email = JOptionPane.showInputDialog(this, &quot;Enter email:&quot;);</span>
+<span class="nc" id="L128">                String phone = JOptionPane.showInputDialog(this, &quot;Enter phone:&quot;);</span>
+<span class="nc bnc" id="L129" title="All 4 branches missed.">                if (name != null &amp;&amp; !name.isEmpty()) {</span>
+<span class="nc" id="L130">                    insertSupplier(name, compName, email, phone);</span>
+                }
+<span class="nc" id="L132">            } else {</span>
+<span class="nc" id="L133">                LocalDate temp = LocalDate.now();</span>
+<span class="nc" id="L134">                java.sql.Date payDate = java.sql.Date.valueOf(temp);                </span>
+<span class="nc" id="L135">                String amountStr = JOptionPane.showInputDialog(this, &quot;Enter price:&quot;);</span>
+<span class="nc" id="L136">                String payMeth = JOptionPane.showInputDialog(this, &quot;Enter payment method:&quot;);</span>
+<span class="nc" id="L137">                String status = JOptionPane.showInputDialog(this, &quot;Enter status:&quot;);</span>
+<span class="nc bnc" id="L138" title="All 4 branches missed.">                if (amountStr != null &amp;&amp; !amountStr.isEmpty()) {</span>
+<span class="nc" id="L139">                    insertPayment(payDate, amountStr, payMeth, status);</span>
+                }
+            }
+<span class="nc" id="L142">        });</span>
+
+<span class="nc" id="L144">        b2.addActionListener(e -&gt; {</span>
+<span class="nc" id="L145">            String table = combo.getSelectedItem().toString();</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">            if (table.equalsIgnoreCase(&quot;bicycle&quot;)) {</span>
+<span class="nc" id="L147">                int ID = Integer.parseInt(JOptionPane.showInputDialog(this, &quot;Enter ID:&quot;));</span>
+<span class="nc" id="L148">                String model = JOptionPane.showInputDialog(this, &quot;Enter model:&quot;);</span>
+<span class="nc" id="L149">                String type = JOptionPane.showInputDialog(this, &quot;Enter type:&quot;);</span>
+<span class="nc" id="L150">                String status = JOptionPane.showInputDialog(this, &quot;Enter status:&quot;);</span>
+<span class="nc" id="L151">                String priceStr = JOptionPane.showInputDialog(this, &quot;Enter price per hour:&quot;);</span>
+<span class="nc" id="L152">                String locationIdStr = JOptionPane.showInputDialog(this, &quot;Enter location_id:&quot;);</span>
+<span class="nc" id="L153">                String supplierIdStr = JOptionPane.showInputDialog(this, &quot;Enter supplier_id:&quot;);</span>
+<span class="nc" id="L154">                String accessoryIdStr = JOptionPane.showInputDialog(this, &quot;Enter accessory_id:&quot;);</span>
+<span class="nc" id="L155">                String addedByStr = JOptionPane.showInputDialog(this, &quot;Enter added_by:&quot;);</span>
+<span class="nc bnc" id="L156" title="All 4 branches missed.">                if (model != null &amp;&amp; !model.isEmpty()) {</span>
+<span class="nc" id="L157">                    updateBicycle(model, type, status, priceStr, locationIdStr, supplierIdStr, accessoryIdStr, addedByStr, ID);</span>
+                }
+<span class="nc bnc" id="L159" title="All 2 branches missed.">            } else if (table.equalsIgnoreCase(&quot;customer&quot;)) {</span>
+<span class="nc" id="L160">                int ID = Integer.parseInt(JOptionPane.showInputDialog(this, &quot;Enter ID:&quot;));</span>
+<span class="nc" id="L161">                String name = JOptionPane.showInputDialog(this, &quot;Enter name:&quot;);</span>
+<span class="nc" id="L162">                String email = JOptionPane.showInputDialog(this, &quot;Enter email:&quot;);</span>
+<span class="nc" id="L163">                String phone = JOptionPane.showInputDialog(this, &quot;Enter phone:&quot;);</span>
+<span class="nc" id="L164">                String password = JOptionPane.showInputDialog(this, &quot;Enter password:&quot;);</span>
+<span class="nc" id="L165">                LocalDate temp = LocalDate.now();</span>
+<span class="nc" id="L166">                java.sql.Date regDate = java.sql.Date.valueOf(temp);</span>
+<span class="nc bnc" id="L167" title="All 4 branches missed.">                if (name != null &amp;&amp; !name.isEmpty()) {</span>
+<span class="nc" id="L168">                    updateCustomer(name, email, phone, password, regDate, ID);</span>
+                }
+<span class="nc bnc" id="L170" title="All 2 branches missed.">            } else if (table.equalsIgnoreCase(&quot;accessory&quot;)) {</span>
+<span class="nc" id="L171">                int ID = Integer.parseInt(JOptionPane.showInputDialog(this, &quot;Enter ID:&quot;));</span>
+<span class="nc" id="L172">                String type = JOptionPane.showInputDialog(this, &quot;Enter type:&quot;);</span>
+<span class="nc" id="L173">                String priceStr = JOptionPane.showInputDialog(this, &quot;Enter price:&quot;);</span>
+<span class="nc bnc" id="L174" title="All 4 branches missed.">                if (type != null &amp;&amp; !type.isEmpty()) {</span>
+<span class="nc" id="L175">                    updateAccessory(type, priceStr, ID);</span>
+                }
+<span class="nc bnc" id="L177" title="All 2 branches missed.">            } else if(table.equalsIgnoreCase(&quot;staff&quot;)) {</span>
+<span class="nc" id="L178">                int ID = Integer.parseInt(JOptionPane.showInputDialog(this, &quot;Enter ID:&quot;));</span>
+<span class="nc" id="L179">                String name = JOptionPane.showInputDialog(this, &quot;Enter name:&quot;);</span>
+<span class="nc" id="L180">                String email = JOptionPane.showInputDialog(this, &quot;Enter email:&quot;);</span>
+<span class="nc" id="L181">                String phone = JOptionPane.showInputDialog(this, &quot;Enter phone:&quot;);</span>
+<span class="nc" id="L182">                String password = JOptionPane.showInputDialog(this, &quot;Enter password:&quot;);</span>
+<span class="nc" id="L183">                String role = JOptionPane.showInputDialog(this, &quot;Enter password:&quot;);</span>
+<span class="nc" id="L184">                String manId = JOptionPane.showInputDialog(this, &quot;Enter Manager ID: &quot;);</span>
+<span class="nc bnc" id="L185" title="All 4 branches missed.">                if (name != null &amp;&amp; !name.isEmpty()) {</span>
+<span class="nc" id="L186">                    updateStaff(name, email, phone, password, role, manId, ID);</span>
+                }
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            } else if(table.equalsIgnoreCase(&quot;supplier&quot;)) {</span>
+<span class="nc" id="L189">                int ID = Integer.parseInt(JOptionPane.showInputDialog(this, &quot;Enter ID:&quot;));</span>
+<span class="nc" id="L190">                String name = JOptionPane.showInputDialog(this, &quot;Enter name:&quot;);</span>
+<span class="nc" id="L191">                String compName = JOptionPane.showInputDialog(this, &quot;Enter company name&quot;);</span>
+<span class="nc" id="L192">                String email = JOptionPane.showInputDialog(this, &quot;Enter email:&quot;);</span>
+<span class="nc" id="L193">                String phone = JOptionPane.showInputDialog(this, &quot;Enter phone:&quot;);</span>
+<span class="nc bnc" id="L194" title="All 4 branches missed.">                if (name != null &amp;&amp; !name.isEmpty()) {</span>
+<span class="nc" id="L195">                    updateSupplier(name, compName, email, phone, ID);</span>
+                }
+<span class="nc" id="L197">            } else {</span>
+<span class="nc" id="L198">                int ID = Integer.parseInt(JOptionPane.showInputDialog(this, &quot;Enter ID:&quot;));</span>
+<span class="nc" id="L199">                LocalDate temp = LocalDate.now();</span>
+<span class="nc" id="L200">                java.sql.Date payDate = java.sql.Date.valueOf(temp);                </span>
+<span class="nc" id="L201">                String amountStr = JOptionPane.showInputDialog(this, &quot;Enter price:&quot;);</span>
+<span class="nc" id="L202">                String payMeth = JOptionPane.showInputDialog(this, &quot;Enter payment method:&quot;);</span>
+<span class="nc" id="L203">                String status = JOptionPane.showInputDialog(this, &quot;Enter status:&quot;);</span>
+<span class="nc bnc" id="L204" title="All 4 branches missed.">                if (amountStr != null &amp;&amp; !amountStr.isEmpty()) {</span>
+<span class="nc" id="L205">                    updatePayment(ID, payDate, amountStr, payMeth, status);</span>
+                }
+            }
+<span class="nc" id="L208">        });</span>
+
+<span class="nc" id="L210">        b3.addActionListener(e -&gt; {</span>
+<span class="nc" id="L211">            String table = combo.getSelectedItem().toString();</span>
+<span class="nc" id="L212">            String idStr = JOptionPane.showInputDialog(this, &quot;Enter id to delete:&quot;);</span>
+<span class="nc bnc" id="L213" title="All 4 branches missed.">            if (idStr != null &amp;&amp; !idStr.isEmpty()) {</span>
+<span class="nc" id="L214">                deleteById(table, Integer.parseInt(idStr));</span>
+            }
+<span class="nc" id="L216">        });</span>
+
+<span class="nc" id="L218">        b4.addActionListener(e -&gt; {</span>
+<span class="nc" id="L219">            String table = combo.getSelectedItem().toString();</span>
+<span class="nc" id="L220">            ta1.append(fetchRecords(table));</span>
+<span class="nc" id="L221">        });</span>
+
+<span class="nc" id="L223">        combo.addActionListener(e -&gt; {</span>
+<span class="nc" id="L224">            ta1.setText(&quot;&quot;);</span>
+<span class="nc" id="L225">        });</span>
+<span class="nc" id="L226">    }</span>
+
+
+    @Override
+<span class="nc" id="L230">    public void actionPerformed(ActionEvent e) {}</span>
+
+
+    private void insertBicycle(String model, String type, String status, String priceStr, String locationIdStr, String supplierIdStr, String accessoryIdStr, String addedByStr) {
+<span class="nc" id="L234">        String sql = &quot;INSERT INTO bicycle (model, type, status, price_per_hour, location_id, supplier_id, accessory_id, added_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)&quot;;</span>
+<span class="nc" id="L235">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L236">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L237">            stmt.setString(1, model);</span>
+<span class="nc" id="L238">            stmt.setString(2, type);</span>
+<span class="nc" id="L239">            stmt.setString(3, status);</span>
+<span class="nc" id="L240">            stmt.setBigDecimal(4, new java.math.BigDecimal(priceStr));</span>
+<span class="nc" id="L241">            stmt.setInt(5, Integer.parseInt(locationIdStr));</span>
+<span class="nc" id="L242">            stmt.setInt(6, Integer.parseInt(supplierIdStr));</span>
+<span class="nc" id="L243">            stmt.setInt(7, Integer.parseInt(accessoryIdStr));</span>
+<span class="nc" id="L244">            stmt.setInt(8, Integer.parseInt(addedByStr));</span>
+<span class="nc" id="L245">            stmt.executeUpdate();</span>
+<span class="nc" id="L246">            JOptionPane.showMessageDialog(this, &quot;Inserted into bicycle&quot;);</span>
+<span class="nc" id="L247">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L248">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L249">        }</span>
+<span class="nc" id="L250">    }</span>
+
+    private void updateBicycle(String model, String type, String status, String priceStr, String locationIdStr, String supplierIdStr, String accessoryIdStr, String addedByStr, int id) {
+<span class="nc" id="L253">        String sql = &quot;UPDATE bicycle SET model=?, type=?, status=?, price_per_hour=?, location_id=?, supplier_id=?, accessory_id=?, added_by=?) WHERE bicycle_id=?&quot;;</span>
+<span class="nc" id="L254">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L255">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L256">            stmt.setString(1, model);</span>
+<span class="nc" id="L257">            stmt.setString(2, type);</span>
+<span class="nc" id="L258">            stmt.setString(3, status);</span>
+<span class="nc" id="L259">            stmt.setBigDecimal(4, new java.math.BigDecimal(priceStr));</span>
+<span class="nc" id="L260">            stmt.setInt(5, Integer.parseInt(locationIdStr));</span>
+<span class="nc" id="L261">            stmt.setInt(6, Integer.parseInt(supplierIdStr));</span>
+<span class="nc" id="L262">            stmt.setInt(7, Integer.parseInt(accessoryIdStr));</span>
+<span class="nc" id="L263">            stmt.setInt(8, Integer.parseInt(addedByStr));</span>
+<span class="nc" id="L264">            stmt.setInt(9, id);</span>
+<span class="nc" id="L265">            stmt.executeUpdate();</span>
+<span class="nc" id="L266">            JOptionPane.showMessageDialog(this, &quot;Updated bicycle&quot;);</span>
+<span class="nc" id="L267">        } catch (SQLException ex) {</span>
+<span class="nc" id="L268">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L269">        }</span>
+<span class="nc" id="L270">    }</span>
+
+
+    private void insertCustomer(String name, String email, String phone, String password, java.sql.Date regisDate){
+<span class="nc" id="L274">        String sql = &quot;INSERT INTO renter (full_name, email, phone, password, registered_at) VALUES (?, ?, ?, ?, ?)&quot;;</span>
+<span class="nc" id="L275">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L276">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L277">            stmt.setString(1, name);</span>
+<span class="nc" id="L278">            stmt.setString(2, email);</span>
+<span class="nc" id="L279">            stmt.setString(3, phone);</span>
+<span class="nc" id="L280">            stmt.setString(4, password);</span>
+<span class="nc" id="L281">            stmt.setDate(5, regisDate);</span>
+<span class="nc" id="L282">            stmt.executeUpdate();</span>
+<span class="nc" id="L283">            JOptionPane.showMessageDialog(this, &quot;Inserted into customer&quot;);</span>
+<span class="nc" id="L284">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L285">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L286">        }</span>
+<span class="nc" id="L287">    }</span>
+
+    private void updateCustomer(String name, String email, String phone, String password, java.sql.Date regisDate, int id){
+<span class="nc" id="L290">        String sql = &quot;UPDATE renter SET full_name=?, email=?, phone=?, password=?, registered_at=? WHERE renter_id=?&quot;;</span>
+<span class="nc" id="L291">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L292">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L293">            stmt.setString(1, name);</span>
+<span class="nc" id="L294">            stmt.setString(2, email);</span>
+<span class="nc" id="L295">            stmt.setString(3, phone);</span>
+<span class="nc" id="L296">            stmt.setString(4, password);</span>
+<span class="nc" id="L297">            stmt.setDate(5, regisDate);</span>
+<span class="nc" id="L298">            stmt.setInt(6, id);</span>
+<span class="nc" id="L299">            stmt.executeUpdate();</span>
+<span class="nc" id="L300">            JOptionPane.showMessageDialog(this, &quot;Updated customer&quot;);</span>
+<span class="nc" id="L301">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L302">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L303">        }</span>
+<span class="nc" id="L304">    }</span>
+
+    private void insertAccessory(String type, String priceStr) {
+<span class="nc" id="L307">        String sql = &quot;INSERT INTO accessory (type, price) VALUES (?, ?)&quot;;</span>
+<span class="nc" id="L308">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L309">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L310">            stmt.setString(1, type);</span>
+<span class="nc" id="L311">            stmt.setBigDecimal(2, new java.math.BigDecimal(priceStr));</span>
+<span class="nc" id="L312">            stmt.executeUpdate();</span>
+<span class="nc" id="L313">            JOptionPane.showMessageDialog(this, &quot;Inserted into accessory&quot;);</span>
+<span class="nc" id="L314">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L315">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L316">        }</span>
+<span class="nc" id="L317">    }</span>
+
+    private void updateAccessory(String type, String priceStr, int id) {
+<span class="nc" id="L320">        String sql = &quot;UPDATE accessory SET type=?, price=? WHERE accessory_id=?&quot;;</span>
+<span class="nc" id="L321">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L322">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L323">            stmt.setString(1, type);</span>
+<span class="nc" id="L324">            stmt.setBigDecimal(2, new java.math.BigDecimal(priceStr));</span>
+<span class="nc" id="L325">            stmt.setInt(3, id);</span>
+<span class="nc" id="L326">            stmt.executeUpdate();</span>
+<span class="nc" id="L327">            JOptionPane.showMessageDialog(this, &quot;Updated accessory&quot;);</span>
+<span class="nc" id="L328">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L329">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L330">        }</span>
+<span class="nc" id="L331">    }</span>
+
+    private void insertStaff(String name, String email, String phone, String password, String role, String managerIdStr) {
+<span class="nc" id="L334">        String sql = &quot;INSERT INTO staff (full_name, email, phone, password, role, manager_id) VALUES (?, ?, ?, ?, ?, ?)&quot;;</span>
+<span class="nc" id="L335">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L336">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L337">            stmt.setString(1, name);</span>
+<span class="nc" id="L338">            stmt.setString(2, email);</span>
+<span class="nc" id="L339">            stmt.setString(3, phone);</span>
+<span class="nc" id="L340">            stmt.setString(4, password);</span>
+<span class="nc" id="L341">            stmt.setString(5, role);</span>
+<span class="nc" id="L342">            stmt.setInt(6, Integer.parseInt(managerIdStr));</span>
+<span class="nc" id="L343">            stmt.executeUpdate();</span>
+<span class="nc" id="L344">            JOptionPane.showMessageDialog(this, &quot;Inserted into staff&quot;);</span>
+<span class="nc" id="L345">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L346">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L347">        }</span>
+<span class="nc" id="L348">    }</span>
+
+    private void updateStaff(String name, String email, String phone, String password, String role, String managerIdStr, int id) {
+<span class="nc" id="L351">        String sql = &quot;UPDATE staff SET full_name=?, email=?, phone=?, password=?, role=?, manager_id=? WHERE staff_id=?&quot;;</span>
+<span class="nc" id="L352">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L353">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L354">            stmt.setString(1, name);</span>
+<span class="nc" id="L355">            stmt.setString(2, email);</span>
+<span class="nc" id="L356">            stmt.setString(3, phone);</span>
+<span class="nc" id="L357">            stmt.setString(4, password);</span>
+<span class="nc" id="L358">            stmt.setString(5, role);</span>
+<span class="nc" id="L359">            stmt.setInt(6, Integer.parseInt(managerIdStr));</span>
+<span class="nc" id="L360">            stmt.setInt(7, id);</span>
+<span class="nc" id="L361">            stmt.executeUpdate();</span>
+<span class="nc" id="L362">            JOptionPane.showMessageDialog(this, &quot;Updated staff&quot;);</span>
+<span class="nc" id="L363">        } catch (SQLException ex) {</span>
+<span class="nc" id="L364">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L365">        }</span>
+<span class="nc" id="L366">    }</span>
+
+    private void insertPayment(java.sql.Date date, String meth, String amountStr, String status) {
+<span class="nc" id="L369">        String sql = &quot;INSERT INTO payment (payment_time, amount, payment_method, status) VALUES (?, ?, ?, ?)&quot;;</span>
+<span class="nc" id="L370">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L371">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L372">            stmt.setDate(1, date);</span>
+<span class="nc" id="L373">            stmt.setString(2, meth);</span>
+<span class="nc" id="L374">            stmt.setBigDecimal(3, new java.math.BigDecimal(amountStr));</span>
+<span class="nc" id="L375">            stmt.setString(4, status);</span>
+<span class="nc" id="L376">            stmt.executeUpdate();</span>
+<span class="nc" id="L377">            JOptionPane.showMessageDialog(this, &quot;Inserted into payment&quot;);</span>
+<span class="nc" id="L378">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L379">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L380">        }</span>
+<span class="nc" id="L381">    }</span>
+
+    private void updatePayment(int id, java.sql.Date date, String meth, String amountStr, String status) {
+<span class="nc" id="L384">        String sql = &quot;UPDATE bicycle SET payment_time=?, amount=?, payment_method=?, status=? WHERE renter_id=?&quot;;</span>
+<span class="nc" id="L385">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L386">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L387">            stmt.setDate(1, date);</span>
+<span class="nc" id="L388">            stmt.setString(2, meth);</span>
+<span class="nc" id="L389">            stmt.setBigDecimal(3, new java.math.BigDecimal(amountStr));</span>
+<span class="nc" id="L390">            stmt.setString(4, status);</span>
+<span class="nc" id="L391">            stmt.setInt(5, id);</span>
+<span class="nc" id="L392">            stmt.executeUpdate();</span>
+<span class="nc" id="L393">            JOptionPane.showMessageDialog(this, &quot;Updated payment&quot;);</span>
+<span class="nc" id="L394">        } catch (SQLException ex) {</span>
+<span class="nc" id="L395">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L396">        }</span>
+<span class="nc" id="L397">    }</span>
+
+    private void insertSupplier(String name,String comName, String email, String phone) {
+<span class="nc" id="L400">        String sql = &quot;INSERT INTO supplier (name, company_name, email, phone) VALUES (?, ?, ?, ?)&quot;;</span>
+<span class="nc" id="L401">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L402">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L403">            stmt.setString(1, name);</span>
+<span class="nc" id="L404">            stmt.setString(2, comName);</span>
+<span class="nc" id="L405">            stmt.setString(3, email);</span>
+<span class="nc" id="L406">            stmt.setString(4, phone);</span>
+<span class="nc" id="L407">            stmt.executeUpdate();</span>
+<span class="nc" id="L408">            JOptionPane.showMessageDialog(this, &quot;Inserted into supplier&quot;);</span>
+<span class="nc" id="L409">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L410">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L411">        }</span>
+<span class="nc" id="L412">    }</span>
+
+    private void updateSupplier(String name, String comName, String email, String phone, int id) {
+<span class="nc" id="L415">        String sql = &quot;UPDATE supplier SET name=?, company_name=?, email=?, phone=? WHERE supplier_id=?&quot;;</span>
+<span class="nc" id="L416">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L417">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L418">            stmt.setString(1, name);</span>
+<span class="nc" id="L419">            stmt.setString(2, comName);</span>
+<span class="nc" id="L420">            stmt.setString(3, email);</span>
+<span class="nc" id="L421">            stmt.setString(4, phone);</span>
+<span class="nc" id="L422">            stmt.setInt(5, id);</span>
+<span class="nc" id="L423">            stmt.executeUpdate();</span>
+<span class="nc" id="L424">            JOptionPane.showMessageDialog(this, &quot;Updated supplier&quot;);</span>
+<span class="nc" id="L425">        } catch (SQLException | NumberFormatException ex) {</span>
+<span class="nc" id="L426">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L427">        }</span>
+<span class="nc" id="L428">    }</span>
+
+    private void deleteById(String table, int id) {
+<span class="nc" id="L431">        String idCol = table + &quot;_id&quot;;</span>
+<span class="nc" id="L432">        String sql = &quot;DELETE FROM &quot; + table + &quot; WHERE &quot; + idCol + &quot;=?&quot;;</span>
+<span class="nc" id="L433">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L434">            PreparedStatement stmt = conn.prepareStatement(sql)) {</span>
+<span class="nc" id="L435">            stmt.setInt(1, id);</span>
+<span class="nc" id="L436">            stmt.executeUpdate();</span>
+<span class="nc" id="L437">            JOptionPane.showMessageDialog(this, &quot;Deleted from &quot; + table);</span>
+<span class="nc" id="L438">        } catch (SQLException ex) {</span>
+<span class="nc" id="L439">            JOptionPane.showMessageDialog(this, &quot;Delete failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L440">        }</span>
+<span class="nc" id="L441">    }</span>
+
+    private String fetchRecords(String table) {
+<span class="nc" id="L444">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L445">        String sql = &quot;SELECT * FROM &quot; + table;</span>
+<span class="nc" id="L446">        try (Connection conn = db.getConnection();</span>
+<span class="nc" id="L447">            Statement stmt = conn.createStatement();</span>
+<span class="nc" id="L448">            ResultSet rs = stmt.executeQuery(sql)) {</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">                if (table.equalsIgnoreCase(&quot;bicycle&quot;)) {</span>
+<span class="nc" id="L451">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;bicycle_id&quot;))</span>
+<span class="nc" id="L452">                      .append(&quot;, Model: &quot;).append(rs.getString(&quot;model&quot;))</span>
+<span class="nc" id="L453">                      .append(&quot;, Type: &quot;).append(rs.getString(&quot;type&quot;))</span>
+<span class="nc" id="L454">                      .append(&quot;, Status: &quot;).append(rs.getString(&quot;status&quot;))</span>
+<span class="nc" id="L455">                      .append(&quot;, Price/hr: &quot;).append(rs.getBigDecimal(&quot;price_per_hour&quot;))</span>
+<span class="nc" id="L456">                      .append(&quot;, Location ID: &quot;).append(rs.getInt(&quot;location_id&quot;))</span>
+<span class="nc" id="L457">                      .append(&quot;, Supplier ID: &quot;).append(rs.getInt(&quot;supplier_id&quot;))</span>
+<span class="nc" id="L458">                      .append(&quot;, Accessory ID: &quot;).append(rs.getInt(&quot;accessory_id&quot;))</span>
+<span class="nc" id="L459">                      .append(&quot;, Added By: &quot;).append(rs.getInt(&quot;added_by&quot;))</span>
+<span class="nc" id="L460">                      .append(&quot;, Added At: &quot;).append(rs.getString(&quot;added_at&quot;))</span>
+<span class="nc" id="L461">                      .append(&quot;\n&quot;);</span>
+<span class="nc bnc" id="L462" title="All 2 branches missed.">                } else if (table.equalsIgnoreCase(&quot;accessory&quot;)) {</span>
+<span class="nc" id="L463">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;accessory_id&quot;))</span>
+<span class="nc" id="L464">                      .append(&quot;, Type: &quot;).append(rs.getString(&quot;type&quot;))</span>
+<span class="nc" id="L465">                      .append(&quot;, Price: &quot;).append(rs.getBigDecimal(&quot;price&quot;))</span>
+<span class="nc" id="L466">                      .append(&quot;\n&quot;);</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">                } else if (table.equalsIgnoreCase(&quot;customer&quot;)) {</span>
+<span class="nc" id="L468">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;renter_id&quot;))</span>
+<span class="nc" id="L469">                      .append(&quot;, Name: &quot;).append(rs.getString(&quot;full_name&quot;))</span>
+<span class="nc" id="L470">                      .append(&quot;, Email: &quot;).append(rs.getString(&quot;email&quot;))</span>
+<span class="nc" id="L471">                      .append(&quot;, Phone: &quot;).append(rs.getString(&quot;phone&quot;))</span>
+<span class="nc" id="L472">                      .append(&quot;, Password: &quot;).append(rs.getString(&quot;password&quot;))</span>
+<span class="nc" id="L473">                      .append(&quot;, Registered at: &quot;).append(rs.getDate(&quot;registered_at&quot;))</span>
+<span class="nc" id="L474">                      .append(&quot;\n&quot;);</span>
+<span class="nc bnc" id="L475" title="All 2 branches missed.">                } else if (table.equalsIgnoreCase(&quot;staff&quot;)){</span>
+<span class="nc" id="L476">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;staff_id&quot;))</span>
+<span class="nc" id="L477">                      .append(&quot;, Name: &quot;).append(rs.getString(&quot;full_name&quot;))</span>
+<span class="nc" id="L478">                      .append(&quot;, Email: &quot;).append(rs.getString(&quot;email&quot;))</span>
+<span class="nc" id="L479">                      .append(&quot;, Phone: &quot;).append(rs.getString(&quot;phone&quot;))</span>
+<span class="nc" id="L480">                      .append(&quot;, Password: &quot;).append(rs.getString(&quot;password&quot;))</span>
+<span class="nc" id="L481">                      .append(&quot;, Role: &quot;).append(rs.getString(&quot;role&quot;))</span>
+<span class="nc" id="L482">                      .append(&quot;, Manager ID: &quot;).append(rs.getInt(&quot;manager_id&quot;))</span>
+<span class="nc" id="L483">                      .append(&quot;\n&quot;);</span>
+<span class="nc bnc" id="L484" title="All 2 branches missed.">                } else if (table.equalsIgnoreCase(&quot;supplier&quot;)) {</span>
+<span class="nc" id="L485">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;renter_id&quot;))</span>
+<span class="nc" id="L486">                      .append(&quot;, Name: &quot;).append(rs.getString(&quot;full_name&quot;))</span>
+<span class="nc" id="L487">                      .append(&quot;, Email: &quot;).append(rs.getString(&quot;email&quot;))</span>
+<span class="nc" id="L488">                      .append(&quot;, Phone: &quot;).append(rs.getString(&quot;phone&quot;))</span>
+<span class="nc" id="L489">                      .append(&quot;, Password: &quot;).append(rs.getString(&quot;password&quot;))</span>
+<span class="nc" id="L490">                      .append(&quot;, Registered at: &quot;).append(rs.getDate(&quot;registered_at&quot;))</span>
+<span class="nc" id="L491">                      .append(&quot;\n&quot;);</span>
+                } else {
+<span class="nc" id="L493">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;renter_id&quot;))</span>
+<span class="nc" id="L494">                      .append(&quot;, Name: &quot;).append(rs.getString(&quot;full_name&quot;))</span>
+<span class="nc" id="L495">                      .append(&quot;, Email: &quot;).append(rs.getString(&quot;email&quot;))</span>
+<span class="nc" id="L496">                      .append(&quot;, Phone: &quot;).append(rs.getString(&quot;phone&quot;))</span>
+<span class="nc" id="L497">                      .append(&quot;, Password: &quot;).append(rs.getString(&quot;password&quot;))</span>
+<span class="nc" id="L498">                      .append(&quot;, Registered at: &quot;).append(rs.getDate(&quot;registered_at&quot;))</span>
+<span class="nc" id="L499">                      .append(&quot;\n&quot;);</span>
+                }
+            }
+<span class="nc" id="L502">        } catch (SQLException ex) {</span>
+<span class="nc" id="L503">            sb.append(&quot;Fetch failed: &quot;).append(ex.getMessage());</span>
+<span class="nc" id="L504">        }</span>
+<span class="nc" id="L505">        return sb.toString();</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
