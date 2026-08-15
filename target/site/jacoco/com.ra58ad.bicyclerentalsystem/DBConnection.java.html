@@ -55,7 +55,7 @@ public class DBConnection{
         }
     }
     
-    // public void prepare(String query){
+    // public void prepare(String query){   
     //     try {
     //         statement = connection.prepareStatement(query);
     //     } catch (SQLException | NumberFormatException ex) {
