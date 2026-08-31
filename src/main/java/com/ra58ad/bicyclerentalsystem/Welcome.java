@@ -55,12 +55,12 @@ public class Welcome extends CustomerWindow{
             mb.add(logMenu);
             mb.add(regMenu);
             gb.gridheight = 1;
-            gb.gridwidth = 1;
+            gb.gridwidth = 3;
             gb.gridx = 1;
             gb.gridy = 1;
             gb.fill = GridBagConstraints.HORIZONTAL;
             menuPanel.add(mb, gb);
-            add(menuPanel, BorderLayout.NORTH);
+            this.add(menuPanel, BorderLayout.NORTH);
 
             JPanel mainPanel1 = new JPanel();
             mainPanel1.setBackground(Color.CYAN);
@@ -76,67 +76,67 @@ public class Welcome extends CustomerWindow{
             JLabel l1 = new JLabel(scaledIcon);
             leftPanel.add(l1);
 
-            add(leftPanel, BorderLayout.WEST);
+            this.add(leftPanel, BorderLayout.WEST);
 
             JScrollPane scPanel = new JScrollPane(mainPanel1);
-            add(scPanel);
-
+            this.add(scPanel, BorderLayout.EAST);
             fetchBikes();
 
 
 
-        mainPanel = new JPanel(new CardLayout());
-        bikesOfferedPanel = new JPanel(new GridLayout(0, 2, 10, 10));
-        bikesOfferedPanel.setBackground(Color.BLACK);
-        bikesRentedPanel = new JPanel();
-        bikesRentedPanel.setBackground(Color.BLACK);
-        paymentPanel = new JPanel();
-        paymentPanel.setBackground(Color.BLACK);
+            mainPanel = new JPanel(new CardLayout());
+            bikesOfferedPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+            bikesOfferedPanel.setBackground(Color.BLACK);
+            bikesRentedPanel = new JPanel();
+            bikesRentedPanel.setBackground(Color.BLACK);
+            paymentPanel = new JPanel();
+            paymentPanel.setBackground(Color.BLACK);
 
 
-        bikesOffered = new JButton("Bikes Offered");
-        bikesRented = new JButton("Bikes Rented");
-        payment = new JButton("Payment");
+            bikesOffered = new JButton("Bikes Offered");
+            bikesOffered.setBackground(Color.DARK_GRAY);
 
-        bikesOffered.setBackground(Color.DARK_GRAY);
-        bikesRented.setBackground(Color.DARK_GRAY);
-        payment.setBackground(Color.DARK_GRAY);
+            bikesRented = new JButton("Bikes Rented");
+            bikesRented.setBackground(Color.DARK_GRAY);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(bikesOffered);
-        buttonPanel.add(bikesRented);
-        buttonPanel.add(payment);
+            payment = new JButton("Payment");
+            payment.setBackground(Color.DARK_GRAY);
 
-        addSamples();
+            JPanel buttonPanel = new JPanel(new FlowLayout());
+            buttonPanel.add(bikesOffered);
+            buttonPanel.add(bikesRented);
+            buttonPanel.add(payment);
 
-        mainPanel.add(bikesOfferedPanel, "BikesOffered");
-        mainPanel.add(bikesRentedPanel, "BikesRented");
-        mainPanel.add(paymentPanel, "Payment");
+            addSamples();
+
+            mainPanel.add(bikesOfferedPanel);
+            mainPanel.add(bikesRentedPanel);
+            mainPanel.add(paymentPanel);
 
 
-        add(buttonPanel, BorderLayout.NORTH);
-        add(mainPanel, BorderLayout.CENTER);
+            this.add(buttonPanel, BorderLayout.SOUTH);
+            this.add(mainPanel, BorderLayout.CENTER);
 
-        ActionListener listener = new ActionListener() {
+            ActionListener listener = new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                if (e.getSource() == bikesOffered) {
-                    bikesOffered.setBackground(Color.BLUE);
-                    bikesRented.setBackground(Color.DARK_GRAY);
-                    payment.setBackground(Color.DARK_GRAY);
-                    staffView.setBackground(Color.DARK_GRAY);
-                    cl.show(mainPanel, "BikesOffered");
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+                    if (e.getSource() == bikesOffered) {
+                        bikesOffered.setBackground(Color.BLUE);
+                        bikesRented.setBackground(Color.DARK_GRAY);
+                        payment.setBackground(Color.DARK_GRAY);
+                        // staffView.setBackground(Color.DARK_GRAY);
+                        cl.show(mainPanel, "BikesOffered");
+                }
             }
-        }
-        };
-        bikesOffered.addActionListener(listener);
-        bikesRented.addActionListener(listener);
-        payment.addActionListener(listener);
-    
+            };
+            bikesOffered.addActionListener(listener);
+            bikesRented.addActionListener(listener);
+            payment.addActionListener(listener);
+        
 
-        setScreen();
+            setScreen();
     }
 
     protected void addSamples(){
