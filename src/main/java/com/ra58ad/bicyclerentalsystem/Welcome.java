@@ -71,7 +71,7 @@ public class Welcome extends CustomerWindow{
             
 
             JPanel leftPanel = new JPanel();
-            ImageIcon icon = new ImageIcon("img_1.png");
+            ImageIcon icon = new ImageIcon("images/img_1.png");
             Image img = icon.getImage();
             Image scaledImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(scaledImg);
@@ -117,7 +117,7 @@ public class Welcome extends CustomerWindow{
 
 
             this.add(buttonPanel, BorderLayout.SOUTH);
-            this.add(mainPanel, BorderLayout.CENTER);
+            this.add(mainPanel);
 
             ActionListener listener = new ActionListener() {
 
@@ -130,8 +130,24 @@ public class Welcome extends CustomerWindow{
                         payment.setBackground(Color.DARK_GRAY);
                         // staffView.setBackground(Color.DARK_GRAY);
                         cl.show(mainPanel, "BikesOffered");
+
+                    }else if (e.getSource() == bikesRented) {
+
+                        bikesRented.setBackground(Color.BLUE);
+                        bikesOffered.setBackground(Color.DARK_GRAY);
+                        payment.setBackground(Color.DARK_GRAY);
+                        // staffView.setBackground(Color.DARK_GRAY);
+                        cl.show(mainPanel, "BikesRented");
+
+                    } else if (e.getSource() == payment) {
+
+                        bikesOffered.setBackground(Color.DARK_GRAY);
+                        bikesRented.setBackground(Color.DARK_GRAY);
+                        payment.setBackground(Color.BLUE);
+                        // staffView.setBackground(Color.DARK_GRAY);
+                        cl.show(mainPanel, "Payment");
+                    }
                 }
-            }
             };
             bikesOffered.addActionListener(listener);
             bikesRented.addActionListener(listener);
@@ -147,7 +163,7 @@ public class Welcome extends CustomerWindow{
         for (String[] bike : sb) {
             Random ran = new Random();
             String ranImg = imgList[ran.nextInt(5)];
-            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
+            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource("/images/"+ranImg)));
             bikeLabel.setText("<html>Price: " + bike[4]);
             bikeLabel.setForeground(Color.WHITE);
             bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);

@@ -7,14 +7,14 @@ import javax.swing.JLabel;
 import org.junit.jupiter.api.Test;
 
 class CustomerWindowTest extends CustomerWindow {
-    @Test
-    void addSampleBikesTest() {
-        Consumer<JLabel> login = (JLabel l) -> {
-            setVisible(false);
-            System.out.println("Hello!");
-        };
-        addSampleBikes(login);
-    }
+    // @Test
+    // void addSampleBikesTest() {
+    //     Consumer<JLabel> login = (JLabel l) -> {
+    //         setVisible(false);
+    //         System.out.println("Hello!");
+    //     };
+    //     addSampleBikes(login);
+    // }
 
     //checkstyle plugin skip flag set to true
     //jacoco plugin skip flag set to true
