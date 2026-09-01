@@ -88,17 +88,47 @@ public class Customer extends CustomerWindow {
         // Consumer<JLabel> rent = (JLabel l) -> {
         //     openRentingPage(ranImg, bike[4]);
         // };
+
         
-        // addSampleBikes(rent);
-            
+        addSampleBikes();
+        
         bikesOffered.addActionListener(listener);
         bikesRented.addActionListener(listener);
         payment.addActionListener(listener);
 
         setScreen();
     }
+    
+    // protected void rent(String ranImg) {
+    //     openRentingPage(ranImg, getName());
+    // }
+
+    private void addSampleBikes() {
 
 
+        for (String[] bike : sb) {
+            Random ran = new Random();
+            String ranImg = imgList[ran.nextInt(5)];
+            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
+            bikeLabel.setText("<html>Price: " + bike[4]);
+            bikeLabel.setForeground(Color.WHITE);
+            bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+            bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+            bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    
+                    openRentingPage(ranImg, bike[4]);
+
+                }
+            });
+
+            bikesOfferedPanel.add(bikeLabel);
+        }
+    }
+    
     private void openRentingPage(String resourcePath, String price) {
         JFrame rentingFrame = new JFrame("Rent Bike");
         rentingFrame.setSize(400, 500);

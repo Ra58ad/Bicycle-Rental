@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,32 +17,32 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public abstract class CustomerWindow extends BRWindow{
-    protected ArrayList <String[]> sb = new ArrayList<>();
-    protected String[] imgList = {"img_1.png", "img_2.png", "img_3.png", "img_4.png", "img_5.png"};
-    protected JPanel bikesOfferedPanel;
+    protected static ArrayList <String[]> sb = new ArrayList<>();
+    protected static String[] imgList = {"img_1.png", "img_2.png", "img_3.png", "img_4.png", "img_5.png"};
+    protected static JPanel bikesOfferedPanel;
 
-    protected void addSampleBikes(Consumer<JLabel> fun) {
+    // protected void addSampleBikes(BiConsumer<String, JLabel> fun) {
 
 
-        for (String[] bike : sb) {
-            String ranImg = imgList[new Random().nextInt(5)];
-            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
-            bikeLabel.setText("<html>Price: " + bike[4]);
-            bikeLabel.setForeground(Color.WHITE);
-            bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-            bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-            bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
+    //     for (String[] bike : sb) {
+    //         String ranImg = imgList[new Random().nextInt(5)];
+    //         JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
+    //         bikeLabel.setText("<html>Price: " + bike[4]);
+    //         bikeLabel.setForeground(Color.WHITE);
+    //         bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+    //         bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+    //         bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    //         bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    fun.accept(bikeLabel);
-                }
-            });
+    //         bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+    //             public void mouseClicked(java.awt.event.MouseEvent evt) {
+    //                 fun.accept(ranImg, bikeLabel);
+    //             }
+    //         });
 
-            bikesOfferedPanel.add(bikeLabel);
-        }
-    }
+    //         bikesOfferedPanel.add(bikeLabel);
+    //     }
+    // }
     
     protected void fetchBikes() {
         

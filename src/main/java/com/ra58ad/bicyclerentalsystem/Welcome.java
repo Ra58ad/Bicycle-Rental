@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.function.Consumer;
 
 import javax.swing.ImageIcon;
@@ -21,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import com.ra58ad.bicyclerentalsystem.Customer.PaymentRecord;
 import com.ra58ad.bicyclerentalsystem.Customer.RentedBike;
@@ -107,7 +109,7 @@ public class Welcome extends CustomerWindow{
             buttonPanel.add(bikesRented);
             buttonPanel.add(payment);
 
-            addSamples();
+            addSampleBikes();
 
             mainPanel.add(bikesOfferedPanel);
             mainPanel.add(bikesRentedPanel);
@@ -139,14 +141,39 @@ public class Welcome extends CustomerWindow{
             setScreen();
     }
 
-    protected void addSamples(){
-        Consumer<JLabel> login = (JLabel l) -> {
-            setVisible(false);
-            new Login();
-        };
-        
-        addSampleBikes(login);
+    private void addSampleBikes() {
+
+
+        for (String[] bike : sb) {
+            Random ran = new Random();
+            String ranImg = imgList[ran.nextInt(5)];
+            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
+            bikeLabel.setText("<html>Price: " + bike[4]);
+            bikeLabel.setForeground(Color.WHITE);
+            bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+            bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+            bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    setVisible(false);
+                    new Login();
+                }
+            });
+
+            bikesOfferedPanel.add(bikeLabel);
+        }
     }
+
+    // protected void addSamples(){
+    //     Consumer<JLabel> login = (JLabel l) -> {
+    //         setVisible(false);
+    //         new Login();
+    //     };
+        
+    //     addSampleBikes(login);
+    // }
 }
 
 
