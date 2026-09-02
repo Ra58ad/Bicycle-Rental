@@ -138,13 +138,13 @@ public class Login extends JFrame {
 
 <span class="nc" id="L139">            String[] roles = {&quot;Customer (Renter)&quot;, &quot;Staff&quot;, &quot;Manager&quot;};</span>
 <span class="nc" id="L140">            String selectedRole = (String) JOptionPane.showInputDialog(</span>
-                    this,
-                    &quot;Select your role:&quot;,
-                    &quot;Role Selection&quot;,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    roles,
-                    roles[0]
+<span class="nc" id="L141">                    this,</span>
+<span class="nc" id="L142">                    &quot;Select your role:&quot;,</span>
+<span class="nc" id="L143">                    &quot;Role Selection&quot;,</span>
+<span class="nc" id="L144">                    JOptionPane.QUESTION_MESSAGE,</span>
+<span class="nc" id="L145">                    null,</span>
+<span class="nc" id="L146">                    roles,</span>
+<span class="nc" id="L147">                    roles[0]</span>
             );
 
 <span class="nc bnc" id="L150" title="All 2 branches missed.">            if (selectedRole == null) return;</span>
@@ -172,8 +172,8 @@ public class Login extends JFrame {
 <span class="nc" id="L172">                        new Staff(); break;</span>
                     case &quot;manager&quot;:
 <span class="nc" id="L174">                        new Manager(); break;</span>
-<span class="nc" id="L175">                }</span>
-            } else {
+                }
+<span class="nc" id="L176">            } else {</span>
 <span class="nc" id="L177">                JOptionPane.showMessageDialog(this, &quot;Invalid email or password for selected role.&quot;);</span>
             }
             

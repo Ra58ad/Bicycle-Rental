@@ -55,7 +55,15 @@
         <version>3.8.0</version>
         <scope>compile</scope>
     </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+    <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>4.0.0-beta-1</version>
+        <scope>compile</scope>
+    </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
@@ -223,6 +231,12 @@
         </configuration>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+          <directory>src/main/resources</directory>
+          <!-- <filtering>false</filtering> -->
+      </resource>
+    </resources>
   </build>
   <reporting>
     <plugins>

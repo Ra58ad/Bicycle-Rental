@@ -246,7 +246,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L246">            JOptionPane.showMessageDialog(this, &quot;Inserted into bicycle&quot;);</span>
 <span class="nc" id="L247">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L248">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L249">        }</span>
+        }
 <span class="nc" id="L250">    }</span>
 
     private void updateBicycle(String model, String type, String status, String priceStr, String locationIdStr, String supplierIdStr, String accessoryIdStr, String addedByStr, int id) {
@@ -266,7 +266,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L266">            JOptionPane.showMessageDialog(this, &quot;Updated bicycle&quot;);</span>
 <span class="nc" id="L267">        } catch (SQLException ex) {</span>
 <span class="nc" id="L268">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L269">        }</span>
+        }
 <span class="nc" id="L270">    }</span>
 
 
@@ -283,7 +283,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L283">            JOptionPane.showMessageDialog(this, &quot;Inserted into customer&quot;);</span>
 <span class="nc" id="L284">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L285">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L286">        }</span>
+        }
 <span class="nc" id="L287">    }</span>
 
     private void updateCustomer(String name, String email, String phone, String password, java.sql.Date regisDate, int id){
@@ -300,7 +300,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L300">            JOptionPane.showMessageDialog(this, &quot;Updated customer&quot;);</span>
 <span class="nc" id="L301">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L302">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L303">        }</span>
+        }
 <span class="nc" id="L304">    }</span>
 
     private void insertAccessory(String type, String priceStr) {
@@ -313,7 +313,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L313">            JOptionPane.showMessageDialog(this, &quot;Inserted into accessory&quot;);</span>
 <span class="nc" id="L314">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L315">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L316">        }</span>
+        }
 <span class="nc" id="L317">    }</span>
 
     private void updateAccessory(String type, String priceStr, int id) {
@@ -327,7 +327,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L327">            JOptionPane.showMessageDialog(this, &quot;Updated accessory&quot;);</span>
 <span class="nc" id="L328">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L329">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L330">        }</span>
+        }
 <span class="nc" id="L331">    }</span>
 
     private void insertStaff(String name, String email, String phone, String password, String role, String managerIdStr) {
@@ -344,7 +344,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L344">            JOptionPane.showMessageDialog(this, &quot;Inserted into staff&quot;);</span>
 <span class="nc" id="L345">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L346">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L347">        }</span>
+        }
 <span class="nc" id="L348">    }</span>
 
     private void updateStaff(String name, String email, String phone, String password, String role, String managerIdStr, int id) {
@@ -362,7 +362,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L362">            JOptionPane.showMessageDialog(this, &quot;Updated staff&quot;);</span>
 <span class="nc" id="L363">        } catch (SQLException ex) {</span>
 <span class="nc" id="L364">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L365">        }</span>
+        }
 <span class="nc" id="L366">    }</span>
 
     private void insertPayment(java.sql.Date date, String meth, String amountStr, String status) {
@@ -377,7 +377,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L377">            JOptionPane.showMessageDialog(this, &quot;Inserted into payment&quot;);</span>
 <span class="nc" id="L378">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L379">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L380">        }</span>
+        }
 <span class="nc" id="L381">    }</span>
 
     private void updatePayment(int id, java.sql.Date date, String meth, String amountStr, String status) {
@@ -393,7 +393,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L393">            JOptionPane.showMessageDialog(this, &quot;Updated payment&quot;);</span>
 <span class="nc" id="L394">        } catch (SQLException ex) {</span>
 <span class="nc" id="L395">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L396">        }</span>
+        }
 <span class="nc" id="L397">    }</span>
 
     private void insertSupplier(String name,String comName, String email, String phone) {
@@ -408,7 +408,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L408">            JOptionPane.showMessageDialog(this, &quot;Inserted into supplier&quot;);</span>
 <span class="nc" id="L409">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L410">            JOptionPane.showMessageDialog(this, &quot;Insert failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L411">        }</span>
+        }
 <span class="nc" id="L412">    }</span>
 
     private void updateSupplier(String name, String comName, String email, String phone, int id) {
@@ -424,7 +424,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L424">            JOptionPane.showMessageDialog(this, &quot;Updated supplier&quot;);</span>
 <span class="nc" id="L425">        } catch (SQLException | NumberFormatException ex) {</span>
 <span class="nc" id="L426">            JOptionPane.showMessageDialog(this, &quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L427">        }</span>
+        }
 <span class="nc" id="L428">    }</span>
 
     private void deleteById(String table, int id) {
@@ -437,7 +437,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L437">            JOptionPane.showMessageDialog(this, &quot;Deleted from &quot; + table);</span>
 <span class="nc" id="L438">        } catch (SQLException ex) {</span>
 <span class="nc" id="L439">            JOptionPane.showMessageDialog(this, &quot;Delete failed: &quot; + ex.getMessage());</span>
-<span class="nc" id="L440">        }</span>
+        }
 <span class="nc" id="L441">    }</span>
 
     private String fetchRecords(String table) {
@@ -489,7 +489,7 @@ public class Manager extends JFrame implements ActionListener {
 <span class="nc" id="L489">                      .append(&quot;, Password: &quot;).append(rs.getString(&quot;password&quot;))</span>
 <span class="nc" id="L490">                      .append(&quot;, Registered at: &quot;).append(rs.getDate(&quot;registered_at&quot;))</span>
 <span class="nc" id="L491">                      .append(&quot;\n&quot;);</span>
-                } else {
+<span class="nc" id="L492">                } else {</span>
 <span class="nc" id="L493">                    sb.append(&quot;ID: &quot;).append(rs.getInt(&quot;renter_id&quot;))</span>
 <span class="nc" id="L494">                      .append(&quot;, Name: &quot;).append(rs.getString(&quot;full_name&quot;))</span>
 <span class="nc" id="L495">                      .append(&quot;, Email: &quot;).append(rs.getString(&quot;email&quot;))</span>
@@ -501,7 +501,7 @@ public class Manager extends JFrame implements ActionListener {
             }
 <span class="nc" id="L502">        } catch (SQLException ex) {</span>
 <span class="nc" id="L503">            sb.append(&quot;Fetch failed: &quot;).append(ex.getMessage());</span>
-<span class="nc" id="L504">        }</span>
+        }
 <span class="nc" id="L505">        return sb.toString();</span>
     }
 }

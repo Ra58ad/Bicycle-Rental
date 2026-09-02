@@ -19,9 +19,9 @@ public class DBConnection{
     
     
     public static DBConnection getInstance(){
-<span class="pc bpc" id="L22" title="1 of 2 branches missed.">            if (_instance == null){</span>
-<span class="fc" id="L23">                _instance = new DBConnection();</span>
-<span class="fc" id="L24">                return _instance;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">            if (_instance == null){</span>
+<span class="nc" id="L23">                _instance = new DBConnection();</span>
+<span class="nc" id="L24">                return _instance;</span>
             } else {
 <span class="nc" id="L26">                return _instance;</span>
         }
@@ -34,7 +34,7 @@ public class DBConnection{
 <span class="nc" id="L34">            } catch (SQLException e) {</span>
 <span class="nc" id="L35">                JOptionPane.showMessageDialog(new JFrame(), &quot;Database connection failed (welcome): &quot; + e.getMessage());</span>
 <span class="nc" id="L36">                System.exit(1);</span>
-<span class="nc" id="L37">            }</span>
+            }
 <span class="nc" id="L38">            return connection;</span>
         } else {
 <span class="nc" id="L40">            return connection;</span>
@@ -48,7 +48,7 @@ public class DBConnection{
 <span class="nc" id="L48">            } catch (SQLException e) {</span>
 <span class="nc" id="L49">                JOptionPane.showMessageDialog(new JFrame(), &quot;Database connection failed (welcome): &quot; + e.getMessage());</span>
 <span class="nc" id="L50">                System.exit(1);</span>
-<span class="nc" id="L51">            }</span>
+            }
 <span class="nc" id="L52">            return connection;</span>
         } else {
 <span class="nc" id="L54">            return connection;</span>

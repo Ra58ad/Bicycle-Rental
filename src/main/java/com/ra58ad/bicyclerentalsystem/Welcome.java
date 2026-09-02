@@ -162,8 +162,8 @@ public class Welcome extends CustomerWindow{
 
         for (String[] bike : sb) {
             Random ran = new Random();
-            String ranImg = imgList[ran.nextInt(5)];
-            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource("/images/"+ranImg)));
+            String ranImg = "/" + imgList[ran.nextInt(5)];
+            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
             bikeLabel.setText("<html>Price: " + bike[4]);
             bikeLabel.setForeground(Color.WHITE);
             bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
