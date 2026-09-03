@@ -1,44 +1,23 @@
 package com.ra58ad.bicyclerentalsystem;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import javax.imageio.*;
 import javax.swing.*;
-import java.util.*;
 
 
-public class Register extends JFrame {
-    JLabel l1;
-    JLabel l2;
-    JLabel l3;
-    JLabel l4;
-    JTextField t1;
-    JTextField t2;
-    JTextField t3;
-    JTextField t4;
+public class Register extends AuthWindow {
+    JLabel l1, l2, l3, l4;
+    JTextField t1, t2, t3, t4;
     JTextArea ta;
     JPasswordField pa;
-    JButton b1;
-    JButton b2;
-    JButton regb;
-    JButton forb;
-    JPanel p1;
-    JPanel p2;
+    JButton b1, b2, regb, forb;
+    JPanel p1, p2;
 
-    static String DB = "jdbc:mysql://127.0.0.1:3306/bicycle_rental_system";
-    static String User = "ramo";
-    static String Password = "ra58ad";
     
-    public Register()  {
+    public void display()  {
 
         setTitle("Bicycle Rental Register");
         Insets in = new Insets(0,0,0,0);
@@ -206,7 +185,7 @@ public class Register extends JFrame {
             JOptionPane.showMessageDialog(this, "Registered successfully!");
             
             dispose();
-            new Customer();
+            new Customer().display();
         });
 
         b1.setSize(60, 30);
@@ -215,14 +194,14 @@ public class Register extends JFrame {
         b2 = new JButton("Cancel");
         b2.addActionListener(e -> {
             dispose();
-            new Welcome();
+            new Welcome().display();
         });
         b2.setSize(60, 30);
         p2.add(b2);
 
         regb.addActionListener(e -> {
             dispose();
-            new Login();
+            new Login().display();
         });
         p1.add(regb, gb);
 
@@ -232,19 +211,13 @@ public class Register extends JFrame {
         add(p2, BorderLayout.SOUTH);
         setResizable(false);
         getContentPane().setBackground(Color.decode("#010D1A"));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
-        pack();
-        setLocationRelativeTo(null);
-        //setExtendedState(MAXIMIZED_BOTH);
-        setVisible(true);
+        setScreen();
         
     }
 
     private void register(String name, String email, String phone, String password){
         String sql = "INSERT INTO renter (full_name, email, phone, password, registered_at) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DriverManager.getConnection(DB, User, Password);
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = db.getConnection().prepareStatement(sql)) {
             stmt.setString(1, name);
             stmt.setString(2, email);
             stmt.setString(3, phone);

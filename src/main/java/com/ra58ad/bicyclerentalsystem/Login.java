@@ -1,37 +1,21 @@
 package com.ra58ad.bicyclerentalsystem;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.imageio.*;
 import javax.swing.*;
-import java.util.*;
 
-
-public class Login extends JFrame {
+public class Login extends AuthWindow {
     public boolean flag = false;
-    JLabel l1;
-    JLabel l2;
-    JLabel l3;
-    JLabel l4;
+    JLabel l1, l2, l3, l4;
     JTextField t1;
     JTextArea ta;
     JPasswordField pa;
-    JButton b1;
-    JButton b2;
-    JButton regb;
-    JButton forb;
-    JPanel p1;
-    JPanel p2;
-    private DBConnection db = DBConnection.getInstance();
+    JButton b1, b2, regb, forb;
+    JPanel p1, p2;
 
-    public Login()  {
+    public void display()  {
 
         setTitle("Bicycle Rental Login");
         Insets in = new Insets(0,0,0,0);
@@ -166,12 +150,9 @@ public class Login extends JFrame {
                 dispose();
                 flag = true;
                 switch(table){
-                    case "renter":
-                        new Customer(); break;
-                    case "staff":
-                        new Staff(); break;
-                    case "manager":
-                        new Manager(); break;
+                    case "renter" -> new Customer();
+                    case "staff" -> new Staff();
+                    case "manager" -> new Manager();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid email or password for selected role.");
@@ -185,14 +166,14 @@ public class Login extends JFrame {
         b2 = new JButton("Cancel");
         b2.addActionListener(e -> {
             dispose();
-            new Welcome();
+            new Welcome().display();
         });
         b2.setSize(60, 30);
         p2.add(b2);
 
         regb.addActionListener(e -> {
             dispose();
-            new Register();
+            new Register().display();
         });
         p1.add(regb, gb);
 
@@ -202,34 +183,27 @@ public class Login extends JFrame {
         add(p2, BorderLayout.SOUTH);
         setResizable(false);
         getContentPane().setBackground(Color.decode("#010D1A"));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
-        pack();
-        setLocationRelativeTo(null);
-        //setExtendedState(MAXIMIZED_BOTH);
-        setVisible(true);
+        setScreen();
         
     }
 
+    
     private boolean authenticate(String table, String email, String password) {
         try {
-            Connection conn = db.getConnection();
             String sql = "SELECT * FROM " + table + " WHERE email=? AND password=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             boolean found = rs.next();
             rs.close();
             ps.close();
-            conn.close();
             return found;
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
     }
-
 
 }
 

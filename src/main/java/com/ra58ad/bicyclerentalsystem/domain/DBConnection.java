@@ -1,4 +1,4 @@
-package com.ra58ad.bicyclerentalsystem;
+package com.ra58ad.bicyclerentalsystem.domain;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import com.ra58ad.bicyclerentalsystem.Config;
 
 //Connection class Adapter
 public class DBConnection{

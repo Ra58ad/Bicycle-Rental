@@ -3,6 +3,8 @@ package com.ra58ad.bicyclerentalsystem;
 import java.awt.GridBagConstraints;
 import javax.swing.JFrame;
 
+import com.ra58ad.bicyclerentalsystem.domain.DBConnection;
+
 
 public abstract class BRWindow extends JFrame {
     protected static DBConnection db = DBConnection.getInstance();
