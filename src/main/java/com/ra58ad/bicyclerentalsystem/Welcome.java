@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Consumer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -152,7 +151,6 @@ public class Welcome extends CustomerWindow{
             bikesOffered.addActionListener(listener);
             bikesRented.addActionListener(listener);
             payment.addActionListener(listener);
-        
 
             setScreen();
     }
@@ -172,6 +170,7 @@ public class Welcome extends CustomerWindow{
             bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
 
             bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     setVisible(false);
                     new Login();
@@ -182,14 +181,6 @@ public class Welcome extends CustomerWindow{
         }
     }
 
-    // protected void addSamples(){
-    //     Consumer<JLabel> login = (JLabel l) -> {
-    //         setVisible(false);
-    //         new Login();
-    //     };
-        
-    //     addSampleBikes(login);
-    // }
 }
 
 

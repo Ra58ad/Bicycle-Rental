@@ -1,10 +1,10 @@
 package com.ra58ad.bicyclerentalsystem;
 
 import java.awt.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import javax.swing.*;
+
+import com.ra58ad.bicyclerentalsystem.domain.AuthenticateUser;
 
 public class Login extends AuthWindow {
     public boolean flag = false;
@@ -14,6 +14,7 @@ public class Login extends AuthWindow {
     JPasswordField pa;
     JButton b1, b2, regb, forb;
     JPanel p1, p2;
+    AuthenticateUser auth = new AuthenticateUser();
 
     public void display()  {
 
@@ -144,7 +145,7 @@ public class Login extends AuthWindow {
                     table = "manager"; break;
             }
 
-            authenticated = authenticate(table, email, password);
+            authenticated = auth.authenticateUser(table, email, password, db.getConnection());
             if (authenticated) {
                 JOptionPane.showMessageDialog(this, selectedRole + " login successful!");
                 dispose();
@@ -188,22 +189,22 @@ public class Login extends AuthWindow {
     }
 
     
-    private boolean authenticate(String table, String email, String password) {
-        try {
-            String sql = "SELECT * FROM " + table + " WHERE email=? AND password=?";
-            PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            boolean found = rs.next();
-            rs.close();
-            ps.close();
-            return found;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
+    // private boolean authenticate(String table, String email, String password) {
+    //     try {
+    //         String sql = "SELECT * FROM " + table + " WHERE email=? AND password=?";
+    //         PreparedStatement ps = db.getConnection().prepareStatement(sql);
+    //         ps.setString(1, email);
+    //         ps.setString(2, password);
+    //         ResultSet rs = ps.executeQuery();
+    //         boolean found = rs.next();
+    //         rs.close();
+    //         ps.close();
+    //         return found;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //         return false;
+    //     }
+    // }
 
 }
 

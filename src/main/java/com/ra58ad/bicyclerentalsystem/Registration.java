@@ -1,16 +1,13 @@
 package com.ra58ad.bicyclerentalsystem;
 
 import java.awt.*;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
 
 import javax.swing.*;
 
 import com.ra58ad.bicyclerentalsystem.domain.RegisterUser;
 
 
-public class Registr extends AuthWindow {
+public class Registration extends AuthWindow {
     JLabel l1, l2, l3, l4;
     JTextField t1, t2, t3, t4;
     JTextArea ta;
