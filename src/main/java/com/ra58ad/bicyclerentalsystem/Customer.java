@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Consumer;
-import java.sql.*;
 
 public class Customer extends CustomerWindow {
 
@@ -19,6 +17,7 @@ public class Customer extends CustomerWindow {
     private ArrayList<RentedBike> rentedBikes = new ArrayList<>();
     private ArrayList<PaymentRecord> paymentRecords = new ArrayList<>();
     
+    @Override
     public void display() {
         setTitle();
 

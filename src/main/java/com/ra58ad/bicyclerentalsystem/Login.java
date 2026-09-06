@@ -1,8 +1,20 @@
 package com.ra58ad.bicyclerentalsystem;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import com.ra58ad.bicyclerentalsystem.domain.AuthenticateUser;
 
@@ -174,7 +186,7 @@ public class Login extends AuthWindow {
 
         regb.addActionListener(e -> {
             dispose();
-            new Register().display();
+            new Registration().display();
         });
         p1.add(regb, gb);
 
