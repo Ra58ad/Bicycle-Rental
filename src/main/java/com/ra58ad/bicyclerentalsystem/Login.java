@@ -28,6 +28,7 @@ public class Login extends AuthWindow {
     JPanel p1, p2;
     AuthenticateUser auth = new AuthenticateUser();
 
+    @Override
     public void display()  {
 
         setTitle("Bicycle Rental Login");

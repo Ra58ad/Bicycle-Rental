@@ -107,7 +107,7 @@ public class Customer extends CustomerWindow {
 
         for (String[] bike : sb) {
             Random ran = new Random();
-            String ranImg = imgList[ran.nextInt(5)];
+            String ranImg = "/" + imgList[ran.nextInt(5)];
             JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
             bikeLabel.setText("<html>Price: " + bike[4]);
             bikeLabel.setForeground(Color.WHITE);
@@ -117,6 +117,7 @@ public class Customer extends CustomerWindow {
             bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
 
             bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     
                     openRentingPage(ranImg, bike[4]);

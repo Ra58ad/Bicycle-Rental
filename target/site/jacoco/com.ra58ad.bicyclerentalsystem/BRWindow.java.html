@@ -3,24 +3,26 @@
 import java.awt.GridBagConstraints;
 import javax.swing.JFrame;
 
+import com.ra58ad.bicyclerentalsystem.domain.DBConnection;
 
-<span class="nc" id="L7">public abstract class BRWindow extends JFrame {</span>
-<span class="nc" id="L8">    protected static DBConnection db = DBConnection.getInstance();</span>
-<span class="nc" id="L9">    protected static GridBagConstraints gb = new GridBagConstraints();</span>
+
+<span class="nc" id="L9">public abstract class BRWindow extends JFrame {</span>
+<span class="nc" id="L10">    protected static DBConnection db = DBConnection.getInstance();</span>
+<span class="nc" id="L11">    protected static GridBagConstraints gb = new GridBagConstraints();</span>
     
     protected void setTitle() {
-<span class="nc" id="L12">        super.setTitle(&quot;Bicycle Rental System&quot;);</span>
-<span class="nc" id="L13">    }</span>
+<span class="nc" id="L14">        super.setTitle(&quot;Bicycle Rental System&quot;);</span>
+<span class="nc" id="L15">    }</span>
     
     abstract void display();
 
     protected void setScreen(){
-<span class="nc" id="L18">        setSize(800, 600);</span>
-<span class="nc" id="L19">        setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
-<span class="nc" id="L20">        pack();</span>
-<span class="nc" id="L21">        setLocationRelativeTo(null);</span>
-<span class="nc" id="L22">        setVisible(true);</span>
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L20">        setSize(800, 600);</span>
+<span class="nc" id="L21">        setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
+<span class="nc" id="L22">        pack();</span>
+<span class="nc" id="L23">        setLocationRelativeTo(null);</span>
+<span class="nc" id="L24">        setVisible(true);</span>
+<span class="nc" id="L25">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

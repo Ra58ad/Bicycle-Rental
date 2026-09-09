@@ -173,7 +173,7 @@ public class Welcome extends CustomerWindow{
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     setVisible(false);
-                    new Login();
+                    new Login().display();
                 }
             });
 
