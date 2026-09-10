@@ -101,8 +101,8 @@ public class Customer extends CustomerWindow {
     // protected void rent(String ranImg) {
     //     openRentingPage(ranImg, getName());
     // }
-
-    private void addSampleBikes() {
+    // Change to template method
+    protected void addSampleBikes() {
 
 
         for (String[] bike : sb) {
@@ -120,13 +120,19 @@ public class Customer extends CustomerWindow {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     
-                    openRentingPage(ranImg, bike[4]);
+                    clickAction();
+                    // openRentingPage(ranImg, bike[4]);
 
                 }
             });
 
             bikesOfferedPanel.add(bikeLabel);
         }
+    }
+
+    @Override
+    protected void clickAction(){
+
     }
     
     private void openRentingPage(String resourcePath, String price) {

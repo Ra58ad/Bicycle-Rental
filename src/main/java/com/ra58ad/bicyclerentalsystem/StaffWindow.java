@@ -1,5 +1,8 @@
 package com.ra58ad.bicyclerentalsystem;
 
-public class StaffWindow {
+import java.awt.event.ActionListener;
+
+public abstract class StaffWindow extends BRWindow implements ActionListener{
+
 
 }

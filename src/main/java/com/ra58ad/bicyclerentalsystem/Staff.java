@@ -6,12 +6,12 @@ import java.sql.*;
 import java.time.LocalDate;
 import javax.swing.*;
 
-public class Staff extends JFrame implements ActionListener {
+public class Staff extends StaffWindow {
 
     String[] cblist = {"bicycle","accessory", "customer", "payment"};
 
-
-    public Staff() {
+    @Override
+    public void display() {
         
         setTitle("Manager");
 
@@ -71,11 +71,7 @@ public class Staff extends JFrame implements ActionListener {
         add(sp);
 
         setResizable(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setSize(550, 300);
-        setVisible(true);
+        setScreen();
     
         b1.addActionListener(e -> {
             String table = combo.getSelectedItem().toString();
@@ -188,17 +184,10 @@ public class Staff extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {}
 
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/bicycle_rental_system";
-    private static final String DB_USER = "ramo";
-    private static final String DB_PASS = "ra58ad";
-
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-    }
 
     private void insertBicycle(String model, String type, String status, String priceStr, String locationIdStr, String supplierIdStr, String accessoryIdStr, String addedByStr) {
         String sql = "INSERT INTO bicycle (model, type, status, price_per_hour, location_id, supplier_id, accessory_id, added_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, model);
             stmt.setString(2, type);
@@ -345,7 +334,7 @@ public class Staff extends JFrame implements ActionListener {
     private String fetchRecords(String table) {
         StringBuilder sb = new StringBuilder();
         String sql = "SELECT * FROM " + table;
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {

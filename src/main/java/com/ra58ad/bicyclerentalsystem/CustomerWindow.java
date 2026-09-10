@@ -44,27 +44,28 @@ public abstract class CustomerWindow extends BRWindow{
         }
     }
 
+    // Template Method
+    protected void addSampleBikes() {
+    
+        for (String[] bike : sb) {
+            String ranImg = imgList[new Random().nextInt(5)];
+            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
+            bikeLabel.setText("<html>Price: " + bike[4]);
+            bikeLabel.setForeground(Color.WHITE);
+            bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+            bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+            bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
+    
+            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    clickAction();
+                }
+            });
+    
+            bikesOfferedPanel.add(bikeLabel);
+        }
+    }
+    protected abstract void clickAction();
 }
 
-// protected void addSampleBikes(BiConsumer<String, JLabel> fun) {
-
-
-//     for (String[] bike : sb) {
-//         String ranImg = imgList[new Random().nextInt(5)];
-//         JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
-//         bikeLabel.setText("<html>Price: " + bike[4]);
-//         bikeLabel.setForeground(Color.WHITE);
-//         bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-//         bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-//         bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//         bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
-
-//         bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-//             public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                 fun.accept(ranImg, bikeLabel);
-//             }
-//         });
-
-//         bikesOfferedPanel.add(bikeLabel);
-//     }
-// }

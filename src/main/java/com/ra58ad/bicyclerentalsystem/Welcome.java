@@ -172,13 +172,19 @@ public class Welcome extends CustomerWindow{
             bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    setVisible(false);
-                    new Login().display();
+                    // setVisible(false);
+                    // new Login().display();
+                    clickAction();
                 }
             });
 
             bikesOfferedPanel.add(bikeLabel);
         }
+        
+    }
+    @Override
+    protected void clickAction(){
+
     }
 
 }

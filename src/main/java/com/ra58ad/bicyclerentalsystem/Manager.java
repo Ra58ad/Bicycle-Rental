@@ -12,13 +12,14 @@ import com.ra58ad.bicyclerentalsystem.domain.DBConnection;
 
 import java.util.*;
 
-public class Manager extends JFrame implements ActionListener {
+public class Manager extends StaffWindow {
 
     String[] cblist = {"bicycle","accessory", "customer", "staff", "supplier", "payment"};
     private DBConnection db = DBConnection.getInstance();
 
 
-    public Manager() {
+    @Override
+    public void display() {
         
         setTitle("Manager");
 
@@ -29,7 +30,7 @@ public class Manager extends JFrame implements ActionListener {
         GridBagConstraints gb = new GridBagConstraints();
         JButton signButton = new JButton("Sign Out");
         signButton.addActionListener(e->{
-            new Welcome();
+            new Welcome().display();
             dispose();
         });
 
@@ -78,11 +79,7 @@ public class Manager extends JFrame implements ActionListener {
         add(sp);
 
         setResizable(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setSize(550, 300);
-        setVisible(true);
+        setScreen();
     
         b1.addActionListener(e -> {
             String table = combo.getSelectedItem().toString();
