@@ -102,37 +102,37 @@ public class Customer extends CustomerWindow {
     //     openRentingPage(ranImg, getName());
     // }
     // Change to template method
-    protected void addSampleBikes() {
+    // protected void addSampleBikes() {
 
 
-        for (String[] bike : sb) {
-            Random ran = new Random();
-            String ranImg = "/" + imgList[ran.nextInt(5)];
-            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
-            bikeLabel.setText("<html>Price: " + bike[4]);
-            bikeLabel.setForeground(Color.WHITE);
-            bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-            bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-            bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
+    //     for (String[] bike : sb) {
+    //         Random ran = new Random();
+    //         String ranImg = "/" + imgList[ran.nextInt(5)];
+    //         JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
+    //         bikeLabel.setText("<html>Price: " + bike[4]);
+    //         bikeLabel.setForeground(Color.WHITE);
+    //         bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+    //         bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+    //         bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    //         bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
+    //         bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+    //             @Override
+    //             public void mouseClicked(java.awt.event.MouseEvent evt) {
                     
-                    clickAction();
-                    // openRentingPage(ranImg, bike[4]);
+    //                         openRentingPage(img, price);
 
-                }
-            });
+                    
+    //             }
+    //         });
 
-            bikesOfferedPanel.add(bikeLabel);
-        }
-    }
-
+    //         bikesOfferedPanel.add(bikeLabel);
+    //     }
+    // }
+    
     @Override
-    protected void clickAction(){
-
+    protected void clickAction(String img, String price){
+        openRentingPage(img, price);
     }
     
     private void openRentingPage(String resourcePath, String price) {

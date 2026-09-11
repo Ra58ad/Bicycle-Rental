@@ -59,13 +59,13 @@ public abstract class CustomerWindow extends BRWindow{
     
             bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    clickAction();
+                    clickAction(ranImg, bike[4]);
                 }
             });
     
             bikesOfferedPanel.add(bikeLabel);
         }
     }
-    protected abstract void clickAction();
+    protected abstract void clickAction(String img, String price);
 }
 
