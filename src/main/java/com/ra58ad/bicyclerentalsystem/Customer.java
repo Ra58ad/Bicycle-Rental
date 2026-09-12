@@ -1,13 +1,26 @@
 package com.ra58ad.bicyclerentalsystem;
 
-import javax.swing.*;
-
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class Customer extends CustomerWindow {
 
@@ -56,37 +69,31 @@ public class Customer extends CustomerWindow {
         add(buttonPanel, BorderLayout.NORTH);
         add(mainPanel, BorderLayout.CENTER);
 
-        ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                if (e.getSource() == bikesOffered) {
-                    bikesOffered.setBackground(Color.BLUE);
-                    bikesRented.setBackground(Color.DARK_GRAY);
-                    payment.setBackground(Color.DARK_GRAY);
-                    staffView.setBackground(Color.DARK_GRAY);
-                    cl.show(mainPanel, "BikesOffered");
-                } else if (e.getSource() == bikesRented) {
-                    bikesRented.setBackground(Color.BLUE);
-                    bikesOffered.setBackground(Color.DARK_GRAY);
-                    payment.setBackground(Color.DARK_GRAY);
-                    staffView.setBackground(Color.DARK_GRAY);
-                    showRentedBikes();
-                    cl.show(mainPanel, "BikesRented");
-                } else if (e.getSource() == payment) {
-                    payment.setBackground(Color.BLUE);
-                    bikesOffered.setBackground(Color.DARK_GRAY);
-                    bikesRented.setBackground(Color.DARK_GRAY);
-                    staffView.setBackground(Color.DARK_GRAY);
-                    showPaymentRecords();
-                    cl.show(mainPanel, "Payment");
-                }
+        ActionListener listener = (ActionEvent e) -> {
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            if (e.getSource() == bikesOffered) {
+                bikesOffered.setBackground(Color.BLUE);
+                bikesRented.setBackground(Color.DARK_GRAY);
+                payment.setBackground(Color.DARK_GRAY);
+                staffView.setBackground(Color.DARK_GRAY);
+                cl.show(mainPanel, "BikesOffered");
+            } else if (e.getSource() == bikesRented) {
+                bikesRented.setBackground(Color.BLUE);
+                bikesOffered.setBackground(Color.DARK_GRAY);
+                payment.setBackground(Color.DARK_GRAY);
+                staffView.setBackground(Color.DARK_GRAY);
+                showRentedBikes();
+                cl.show(mainPanel, "BikesRented");
+            } else if (e.getSource() == payment) {
+                payment.setBackground(Color.BLUE);
+                bikesOffered.setBackground(Color.DARK_GRAY);
+                bikesRented.setBackground(Color.DARK_GRAY);
+                staffView.setBackground(Color.DARK_GRAY);
+                showPaymentRecords();
+                cl.show(mainPanel, "Payment");
             }
         };
 
-        // Consumer<JLabel> rent = (JLabel l) -> {
-        //     openRentingPage(ranImg, bike[4]);
-        // };
 
         
         addSampleBikes();

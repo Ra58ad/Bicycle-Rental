@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -48,7 +45,7 @@ public abstract class CustomerWindow extends BRWindow{
     protected void addSampleBikes() {
     
         for (String[] bike : sb) {
-            String ranImg = imgList[new Random().nextInt(5)];
+            String ranImg = '/' + imgList[new Random().nextInt(5)];
             JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
             bikeLabel.setText("<html>Price: " + bike[4]);
             bikeLabel.setForeground(Color.WHITE);

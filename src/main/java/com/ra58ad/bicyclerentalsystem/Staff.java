@@ -1,10 +1,25 @@
 package com.ra58ad.bicyclerentalsystem;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Staff extends StaffWindow {
 
@@ -206,7 +221,7 @@ public class Staff extends StaffWindow {
 
     private void updateBicycle(String model, String type, String status, String priceStr, String locationIdStr, String supplierIdStr, String accessoryIdStr, String addedByStr, int id) {
         String sql = "UPDATE bicycle SET model=?, type=?, status=?, price_per_hour=?, location_id=?, supplier_id=?, accessory_id=?, added_by=?) WHERE bicycle_id=?";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, model);
             stmt.setString(2, type);
@@ -227,7 +242,7 @@ public class Staff extends StaffWindow {
 
     private void insertCustomer(String name, String email, String phone, String password, java.sql.Date regisDate){
         String sql = "INSERT INTO staff (full_name, email, phone, password, registered_at) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
             stmt.setString(2, email);
@@ -243,7 +258,7 @@ public class Staff extends StaffWindow {
 
     private void updateCustomer(String name, String email, String phone, String password, java.sql.Date regisDate, int id){
         String sql = "UPDATE renter SET full_name=?, email=?, phone=?, password=?, registered_at=? WHERE renter_id=?";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
             stmt.setString(2, email);
@@ -260,7 +275,7 @@ public class Staff extends StaffWindow {
 
     private void insertAccessory(String type, String priceStr) {
         String sql = "INSERT INTO accessory (type, price) VALUES (?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, type);
             stmt.setBigDecimal(2, new java.math.BigDecimal(priceStr));
@@ -273,7 +288,7 @@ public class Staff extends StaffWindow {
 
     private void updateAccessory(String type, String priceStr, int id) {
         String sql = "UPDATE accessory SET type=?, price=? WHERE accessory_id=?";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, type);
             stmt.setBigDecimal(2, new java.math.BigDecimal(priceStr));
@@ -288,7 +303,7 @@ public class Staff extends StaffWindow {
 
     private void insertPayment(java.sql.Date date, String meth, String amountStr, String status) {
         String sql = "INSERT INTO payment (payment_time, amount, payment_method, status) VALUES (?, ?, ?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDate(1, date);
             stmt.setString(2, meth);
@@ -303,7 +318,7 @@ public class Staff extends StaffWindow {
 
     private void updatePayment(int id, java.sql.Date date, String meth, String amountStr, String status) {
         String sql = "UPDATE bicycle SET payment_time=?, amount=?, payment_method=?, status=? WHERE renter_id=?";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDate(1, date);
             stmt.setString(2, meth);
@@ -321,7 +336,7 @@ public class Staff extends StaffWindow {
     private void deleteById(String table, int id) {
         String idCol = table + "_id";
         String sql = "DELETE FROM " + table + " WHERE " + idCol + "=?";
-        try (Connection conn = getConnection();
+        try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

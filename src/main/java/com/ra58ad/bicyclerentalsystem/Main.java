@@ -4,6 +4,6 @@ package com.ra58ad.bicyclerentalsystem;
 public class Main {
 
     public static void main(String[] args) {
-        new Customer().display();
+        new Welcome().display();
     }
 }

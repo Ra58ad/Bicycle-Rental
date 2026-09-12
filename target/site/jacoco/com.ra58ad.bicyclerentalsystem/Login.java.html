@@ -164,9 +164,9 @@ import com.ra58ad.bicyclerentalsystem.domain.AuthenticateUser;
 <span class="nc" id="L164">                dispose();</span>
 <span class="nc" id="L165">                flag = true;</span>
 <span class="nc bnc" id="L166" title="All 4 branches missed.">                switch(table){</span>
-<span class="nc" id="L167">                    case &quot;renter&quot; -&gt; new Customer();</span>
-<span class="nc" id="L168">                    case &quot;staff&quot; -&gt; new Staff();</span>
-<span class="nc" id="L169">                    case &quot;manager&quot; -&gt; new Manager();</span>
+<span class="nc" id="L167">                    case &quot;renter&quot; -&gt; new Customer().display();</span>
+<span class="nc" id="L168">                    case &quot;staff&quot; -&gt; new Staff().display();</span>
+<span class="nc" id="L169">                    case &quot;manager&quot; -&gt; new Manager().display();</span>
                 }
 <span class="nc" id="L171">            } else {</span>
 <span class="nc" id="L172">                JOptionPane.showMessageDialog(this, &quot;Invalid email or password for selected role.&quot;);</span>

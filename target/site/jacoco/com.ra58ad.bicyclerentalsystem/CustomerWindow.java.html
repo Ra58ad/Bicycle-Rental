@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,56 +13,57 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-<span class="nc" id="L19">public abstract class CustomerWindow extends BRWindow{</span>
-<span class="nc" id="L20">    protected static ArrayList &lt;String[]&gt; sb = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L21">    protected static String[] imgList = {&quot;img_1.png&quot;, &quot;img_2.png&quot;, &quot;img_3.png&quot;, &quot;img_4.png&quot;, &quot;img_5.png&quot;};</span>
-<span class="nc" id="L22">    protected static JPanel bikesOfferedPanel;</span>
+<span class="nc" id="L16">public abstract class CustomerWindow extends BRWindow{</span>
+<span class="nc" id="L17">    protected static ArrayList &lt;String[]&gt; sb = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L18">    protected static String[] imgList = {&quot;img_1.png&quot;, &quot;img_2.png&quot;, &quot;img_3.png&quot;, &quot;img_4.png&quot;, &quot;img_5.png&quot;};</span>
+<span class="nc" id="L19">    protected static JPanel bikesOfferedPanel;</span>
 
     
     protected void fetchBikes() {
         
-<span class="nc" id="L27">        String sql = &quot;SELECT * FROM bicycle&quot;;</span>
-<span class="nc" id="L28">        try (</span>
-<span class="nc" id="L29">            Statement stmt = db.getConnection().createStatement();</span>
-<span class="nc" id="L30">            ResultSet rs = stmt.executeQuery(sql)) {</span>
-<span class="nc bnc" id="L31" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L24">        String sql = &quot;SELECT * FROM bicycle&quot;;</span>
+<span class="nc" id="L25">        try (</span>
+<span class="nc" id="L26">            Statement stmt = db.getConnection().createStatement();</span>
+<span class="nc" id="L27">            ResultSet rs = stmt.executeQuery(sql)) {</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">            while (rs.next()) {</span>
                 
-<span class="nc" id="L33">                String ID = rs.getString(&quot;bicycle_id&quot;);</span>
-<span class="nc" id="L34">                String model = rs.getString(&quot;model&quot;);</span>
-<span class="nc" id="L35">                String type = rs.getString(&quot;type&quot;);</span>
-<span class="nc" id="L36">                String status = rs.getString(&quot;status&quot;);</span>
-<span class="nc" id="L37">                String price = rs.getString(&quot;price_per_hour&quot;);</span>
-<span class="nc" id="L38">                String[] temp = {ID, model, type, status, price};</span>
-<span class="nc" id="L39">                sb.add(temp);</span>
+<span class="nc" id="L30">                String ID = rs.getString(&quot;bicycle_id&quot;);</span>
+<span class="nc" id="L31">                String model = rs.getString(&quot;model&quot;);</span>
+<span class="nc" id="L32">                String type = rs.getString(&quot;type&quot;);</span>
+<span class="nc" id="L33">                String status = rs.getString(&quot;status&quot;);</span>
+<span class="nc" id="L34">                String price = rs.getString(&quot;price_per_hour&quot;);</span>
+<span class="nc" id="L35">                String[] temp = {ID, model, type, status, price};</span>
+<span class="nc" id="L36">                sb.add(temp);</span>
             }
         }
-<span class="nc" id="L42">        catch (SQLException ex) {</span>
-<span class="nc" id="L43">            JOptionPane.showMessageDialog(this, &quot;Fetch failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L39">        catch (SQLException ex) {</span>
+<span class="nc" id="L40">            JOptionPane.showMessageDialog(this, &quot;Fetch failed: &quot; + ex.getMessage());</span>
         }
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L42">    }</span>
 
+    // Template Method
+    protected void addSampleBikes() {
+    
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (String[] bike : sb) {</span>
+<span class="nc" id="L48">            String ranImg = '/' + imgList[new Random().nextInt(5)];</span>
+<span class="nc" id="L49">            JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));</span>
+<span class="nc" id="L50">            bikeLabel.setText(&quot;&lt;html&gt;Price: &quot; + bike[4]);</span>
+<span class="nc" id="L51">            bikeLabel.setForeground(Color.WHITE);</span>
+<span class="nc" id="L52">            bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);</span>
+<span class="nc" id="L53">            bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);</span>
+<span class="nc" id="L54">            bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L55">            bikeLabel.setVerticalAlignment(SwingConstants.CENTER);</span>
+    
+<span class="nc" id="L57">            bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {</span>
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+<span class="nc" id="L59">                    clickAction(ranImg, bike[4]);</span>
+<span class="nc" id="L60">                }</span>
+            });
+    
+<span class="nc" id="L63">            bikesOfferedPanel.add(bikeLabel);</span>
+        }
+<span class="nc" id="L65">    }</span>
+    protected abstract void clickAction(String img, String price);
 }
 
-// protected void addSampleBikes(BiConsumer&lt;String, JLabel&gt; fun) {
-
-
-//     for (String[] bike : sb) {
-//         String ranImg = imgList[new Random().nextInt(5)];
-//         JLabel bikeLabel = new JLabel(new ImageIcon(getClass().getResource(ranImg)));
-//         bikeLabel.setText(&quot;&lt;html&gt;Price: &quot; + bike[4]);
-//         bikeLabel.setForeground(Color.WHITE);
-//         bikeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-//         bikeLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-//         bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//         bikeLabel.setVerticalAlignment(SwingConstants.CENTER);
-
-//         bikeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-//             public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                 fun.accept(ranImg, bikeLabel);
-//             }
-//         });
-
-//         bikesOfferedPanel.add(bikeLabel);
-//     }
-// }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

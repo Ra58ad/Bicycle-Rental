@@ -11,7 +11,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +20,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 
 import com.ra58ad.bicyclerentalsystem.Customer.PaymentRecord;
 import com.ra58ad.bicyclerentalsystem.Customer.RentedBike;
@@ -29,10 +27,11 @@ import com.ra58ad.bicyclerentalsystem.Customer.RentedBike;
 public class Welcome extends CustomerWindow{
 
         private JButton bikesOffered, bikesRented, payment, staffView;
-        private JPanel mainPanel, bikesOfferedPanel, bikesRentedPanel, paymentPanel, staffPanel;
+        private JPanel mainPanel, bikesRentedPanel, paymentPanel, staffPanel;
         private ArrayList<RentedBike> rentedBikes = new ArrayList<>();
         private ArrayList<PaymentRecord> paymentRecords = new ArrayList<>();
 
+        @Override
         public void display() {
             
             JPanel menuPanel = new JPanel();
@@ -118,34 +117,30 @@ public class Welcome extends CustomerWindow{
             this.add(buttonPanel, BorderLayout.SOUTH);
             this.add(mainPanel);
 
-            ActionListener listener = new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    CardLayout cl = (CardLayout) mainPanel.getLayout();
-                    if (e.getSource() == bikesOffered) {
-                        bikesOffered.setBackground(Color.BLUE);
-                        bikesRented.setBackground(Color.DARK_GRAY);
-                        payment.setBackground(Color.DARK_GRAY);
-                        // staffView.setBackground(Color.DARK_GRAY);
-                        cl.show(mainPanel, "BikesOffered");
-
-                    }else if (e.getSource() == bikesRented) {
-
-                        bikesRented.setBackground(Color.BLUE);
-                        bikesOffered.setBackground(Color.DARK_GRAY);
-                        payment.setBackground(Color.DARK_GRAY);
-                        // staffView.setBackground(Color.DARK_GRAY);
-                        cl.show(mainPanel, "BikesRented");
-
-                    } else if (e.getSource() == payment) {
-
-                        bikesOffered.setBackground(Color.DARK_GRAY);
-                        bikesRented.setBackground(Color.DARK_GRAY);
-                        payment.setBackground(Color.BLUE);
-                        // staffView.setBackground(Color.DARK_GRAY);
-                        cl.show(mainPanel, "Payment");
-                    }
+            ActionListener listener = (ActionEvent e) -> {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                if (e.getSource() == bikesOffered) {
+                    bikesOffered.setBackground(Color.BLUE);
+                    bikesRented.setBackground(Color.DARK_GRAY);
+                    payment.setBackground(Color.DARK_GRAY);
+                    // staffView.setBackground(Color.DARK_GRAY);
+                    cl.show(mainPanel, "BikesOffered");
+                    
+                }else if (e.getSource() == bikesRented) {
+                    
+                    bikesRented.setBackground(Color.BLUE);
+                    bikesOffered.setBackground(Color.DARK_GRAY);
+                    payment.setBackground(Color.DARK_GRAY);
+                    // staffView.setBackground(Color.DARK_GRAY);
+                    cl.show(mainPanel, "BikesRented");
+                    
+                } else if (e.getSource() == payment) {
+                    
+                    bikesOffered.setBackground(Color.DARK_GRAY);
+                    bikesRented.setBackground(Color.DARK_GRAY);
+                    payment.setBackground(Color.BLUE);
+                    // staffView.setBackground(Color.DARK_GRAY);
+                    cl.show(mainPanel, "Payment");
                 }
             };
             bikesOffered.addActionListener(listener);

@@ -164,9 +164,9 @@ public class Login extends AuthWindow {
                 dispose();
                 flag = true;
                 switch(table){
-                    case "renter" -> new Customer();
-                    case "staff" -> new Staff();
-                    case "manager" -> new Manager();
+                    case "renter" -> new Customer().display();
+                    case "staff" -> new Staff().display();
+                    case "manager" -> new Manager().display();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid email or password for selected role.");
