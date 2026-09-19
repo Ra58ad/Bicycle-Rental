@@ -1,9 +1,9 @@
 package com.ra58ad.bicyclerentalsystem;
 
 import java.awt.Color;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,13 +19,17 @@ public abstract class CustomerWindow extends BRWindow{
     protected static JPanel bikesOfferedPanel;
 
     
-    protected void fetchBikes() {
+    protected void fetchBikes(boolean flag, String col, String condition) {
         
         String sql = "SELECT * FROM bicycle";
+        if(flag) sql += " WHERE ? = ?"
         try (
-            Statement stmt = db.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
+            PreparedStatement stmt = db.getConnection().prepareStatement(sql);
+            ) {
+                ResultSet rs = stmt.executeQuery(sql);
+                stmt.setString(1, col);
+                stmt.setString(2, condition);
+                while (rs.next()) {
                 
                 String ID = rs.getString("bicycle_id");
                 String model = rs.getString("model");
@@ -40,6 +44,7 @@ public abstract class CustomerWindow extends BRWindow{
             JOptionPane.showMessageDialog(this, "Fetch failed: " + ex.getMessage());
         }
     }
+
 
     // Template Method
     protected void addSampleBikes() {

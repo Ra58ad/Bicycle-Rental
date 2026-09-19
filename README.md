@@ -15,6 +15,8 @@ This project is part of an internship task that's based on refactoring an earlie
 
 ## Version History
 
+* 0.5
+    * Introduce Template methods
 
 * 0.4
     * Testing started
