@@ -80,7 +80,7 @@ public class Welcome extends CustomerWindow{
 
             JScrollPane scPanel = new JScrollPane(mainPanel1);
             this.add(scPanel, BorderLayout.EAST);
-            fetchBikes("bicycle_id", "");
+            fetchBikes(/*"bicycle_id", ""*/);
 
 
 

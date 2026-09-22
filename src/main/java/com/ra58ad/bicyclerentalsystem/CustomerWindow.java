@@ -19,16 +19,15 @@ public abstract class CustomerWindow extends BRWindow{
     protected static JPanel bikesOfferedPanel;
 
     
-    protected void fetchBikes(boolean flag, String col, String condition) {
+    protected void fetchBikes(/*int type*/) {
         
         String sql = "SELECT * FROM bicycle";
-        if(flag) sql += " WHERE ? = ?"
+        // if (type == 1) sql = "SELECT * FROM bicycle";
+        // else if (type == 2) sql = "SELECT * FROM bicycle WHERE ";
         try (
             PreparedStatement stmt = db.getConnection().prepareStatement(sql);
             ) {
                 ResultSet rs = stmt.executeQuery(sql);
-                stmt.setString(1, col);
-                stmt.setString(2, condition);
                 while (rs.next()) {
                 
                 String ID = rs.getString("bicycle_id");

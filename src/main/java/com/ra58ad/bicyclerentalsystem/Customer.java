@@ -59,7 +59,6 @@ public class Customer extends CustomerWindow {
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
 
-        // addSampleBikes();
 
         mainPanel.add(bikesOfferedPanel, "BikesOffered");
         mainPanel.add(bikesRentedPanel, "BikesRented");
@@ -71,12 +70,14 @@ public class Customer extends CustomerWindow {
 
         ActionListener listener = (ActionEvent e) -> {
             CardLayout cl = (CardLayout) mainPanel.getLayout();
+
             if (e.getSource() == bikesOffered) {
                 bikesOffered.setBackground(Color.BLUE);
                 bikesRented.setBackground(Color.DARK_GRAY);
                 payment.setBackground(Color.DARK_GRAY);
                 staffView.setBackground(Color.DARK_GRAY);
                 cl.show(mainPanel, "BikesOffered");
+
             } else if (e.getSource() == bikesRented) {
                 bikesRented.setBackground(Color.BLUE);
                 bikesOffered.setBackground(Color.DARK_GRAY);
@@ -84,6 +85,7 @@ public class Customer extends CustomerWindow {
                 staffView.setBackground(Color.DARK_GRAY);
                 showRentedBikes();
                 cl.show(mainPanel, "BikesRented");
+
             } else if (e.getSource() == payment) {
                 payment.setBackground(Color.BLUE);
                 bikesOffered.setBackground(Color.DARK_GRAY);
@@ -94,8 +96,6 @@ public class Customer extends CustomerWindow {
             }
         };
 
-
-        
         addSampleBikes();
         
         bikesOffered.addActionListener(listener);
@@ -228,8 +228,8 @@ public class Customer extends CustomerWindow {
             label.setForeground(Color.WHITE);
             bikesRentedPanel.add(label);
         }
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        // mainPanel.revalidate();
+        // mainPanel.repaint();
     }
 
     private void showPaymentRecords() {
@@ -240,8 +240,8 @@ public class Customer extends CustomerWindow {
             label.setForeground(Color.WHITE);
             paymentPanel.add(label);
         }
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        // mainPanel.revalidate();
+        // mainPanel.repaint();
     }
     
     
