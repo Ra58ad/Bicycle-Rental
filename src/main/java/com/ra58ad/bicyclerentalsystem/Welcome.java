@@ -3,7 +3,6 @@ package com.ra58ad.bicyclerentalsystem;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -102,19 +101,19 @@ public class Welcome extends CustomerWindow{
             payment = new JButton("Payment");
             payment.setBackground(Color.DARK_GRAY);
 
-            JPanel buttonPanel = new JPanel(new FlowLayout());
-            buttonPanel.add(bikesOffered);
-            buttonPanel.add(bikesRented);
-            buttonPanel.add(payment);
+            // JPanel buttonPanel = new JPanel(new FlowLayout());
+            // buttonPanel.add(bikesOffered);
+            // buttonPanel.add(bikesRented);
+            // buttonPanel.add(payment);
 
             addSampleBikes();
 
             mainPanel.add(bikesOfferedPanel);
-            mainPanel.add(bikesRentedPanel);
-            mainPanel.add(paymentPanel);
+            // mainPanel.add(bikesRentedPanel);
+            // mainPanel.add(paymentPanel);
 
 
-            this.add(buttonPanel, BorderLayout.SOUTH);
+            // this.add(buttonPanel, BorderLayout.SOUTH);
             this.add(mainPanel);
 
             ActionListener listener = (ActionEvent e) -> {
@@ -144,8 +143,8 @@ public class Welcome extends CustomerWindow{
                 }
             };
             bikesOffered.addActionListener(listener);
-            bikesRented.addActionListener(listener);
-            payment.addActionListener(listener);
+            // bikesRented.addActionListener(listener);
+            // payment.addActionListener(listener);
 
             setScreen();
     }

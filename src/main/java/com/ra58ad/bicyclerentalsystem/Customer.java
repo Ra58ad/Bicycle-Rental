@@ -21,11 +21,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import static javax.swing.SwingConstants.CENTER;
 
 public class Customer extends CustomerWindow {
 
     
-    private JButton bikesOffered, bikesRented, payment, staffView;
+    private JButton bikesOffered, bikesRented, payment, staffView, logout;
     private JPanel mainPanel, bikesRentedPanel, paymentPanel, staffPanel;
     private ArrayList<RentedBike> rentedBikes = new ArrayList<>();
     private ArrayList<PaymentRecord> paymentRecords = new ArrayList<>();
@@ -40,21 +41,28 @@ public class Customer extends CustomerWindow {
         mainPanel = new JPanel(new CardLayout());
         bikesOfferedPanel = new JPanel(new GridLayout(0, 2, 10, 10));
         bikesOfferedPanel.setBackground(Color.BLACK);
-        bikesRentedPanel = new JPanel();
+        bikesRentedPanel = new JPanel(new GridLayout(0, 2, 10, 10));
         bikesRentedPanel.setBackground(Color.BLACK);
-        paymentPanel = new JPanel();
+        paymentPanel = new JPanel(new GridLayout(0, 2, 10, 10));
         paymentPanel.setBackground(Color.BLACK);
 
 
         bikesOffered = new JButton("Bikes Offered");
         bikesRented = new JButton("Bikes Rented");
         payment = new JButton("Payment");
-
+        logout = new JButton("Logout");
+        logout.addActionListener(e -> {
+            dispose();
+            new Welcome().display();
+        });
+        logout.setSize(60, 30);
+        
         bikesOffered.setBackground(Color.DARK_GRAY);
         bikesRented.setBackground(Color.DARK_GRAY);
         payment.setBackground(Color.DARK_GRAY);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(logout);
         buttonPanel.add(bikesOffered);
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
@@ -75,14 +83,14 @@ public class Customer extends CustomerWindow {
                 bikesOffered.setBackground(Color.BLUE);
                 bikesRented.setBackground(Color.DARK_GRAY);
                 payment.setBackground(Color.DARK_GRAY);
-                staffView.setBackground(Color.DARK_GRAY);
+                // staffView.setBackground(Color.DARK_GRAY);
                 cl.show(mainPanel, "BikesOffered");
 
             } else if (e.getSource() == bikesRented) {
                 bikesRented.setBackground(Color.BLUE);
                 bikesOffered.setBackground(Color.DARK_GRAY);
                 payment.setBackground(Color.DARK_GRAY);
-                staffView.setBackground(Color.DARK_GRAY);
+                // staffView.setBackground(Color.DARK_GRAY);
                 showRentedBikes();
                 cl.show(mainPanel, "BikesRented");
 
@@ -90,7 +98,7 @@ public class Customer extends CustomerWindow {
                 payment.setBackground(Color.BLUE);
                 bikesOffered.setBackground(Color.DARK_GRAY);
                 bikesRented.setBackground(Color.DARK_GRAY);
-                staffView.setBackground(Color.DARK_GRAY);
+                // staffView.setBackground(Color.DARK_GRAY);
                 showPaymentRecords();
                 cl.show(mainPanel, "Payment");
             }
@@ -208,7 +216,7 @@ public class Customer extends CustomerWindow {
                 JOptionPane.showMessageDialog(rentingFrame, "Please fill all fields and select payment method");
                 return;
             }
-            rentedBikes.add(new RentedBike("", price, startDate, returnDate));
+            rentedBikes.add(new RentedBike(resourcePath, price, startDate, returnDate));
             paymentRecords.add(new PaymentRecord(price, false));
             JOptionPane.showMessageDialog(rentingFrame, "Bike rented successfully!");
             rentingFrame.dispose();
@@ -224,12 +232,12 @@ public class Customer extends CustomerWindow {
         bikesRentedPanel.removeAll();
         for (RentedBike rb : rentedBikes) {
             String info = "<html>Bike: " + rb.price + "<br>From: " + rb.startDate + "<br>To: " + rb.returnDate + "</html>";
-            JLabel label = new JLabel(info);
+            JLabel label = new JLabel(info, new ImageIcon(getClass().getResource(rb.imagePath)), CENTER);
             label.setForeground(Color.WHITE);
             bikesRentedPanel.add(label);
         }
-        // mainPanel.revalidate();
-        // mainPanel.repaint();
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     private void showPaymentRecords() {
@@ -240,8 +248,8 @@ public class Customer extends CustomerWindow {
             label.setForeground(Color.WHITE);
             paymentPanel.add(label);
         }
-        // mainPanel.revalidate();
-        // mainPanel.repaint();
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
     
     

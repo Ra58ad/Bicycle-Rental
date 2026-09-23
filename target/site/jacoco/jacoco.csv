@@ -1,13 +1,13 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Config,25,0,2,0,13,0,8,0,7,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,CustomerWindow,169,0,4,0,31,0,6,0,4,0
-bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Customer,588,0,22,0,130,0,19,0,8,0
+bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Customer,640,0,22,0,138,0,20,0,9,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Login,515,0,12,0,132,0,13,0,5,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,StaffWindow,3,0,0,0,1,0,1,0,1,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,BRWindow,30,0,0,0,11,0,4,0,4,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Customer.Bike,15,0,0,0,5,0,1,0,1,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Customer.PaymentRecord,12,0,0,0,4,0,1,0,1,0
-bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Welcome,385,0,6,0,89,0,7,0,4,0
+bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Welcome,339,0,6,0,80,0,7,0,4,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,CustomerWindow.new MouseAdapter() {...},22,0,0,0,3,0,2,0,2,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,AuthWindow,3,0,0,0,1,0,1,0,1,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Main,8,0,0,0,3,0,2,0,2,0
