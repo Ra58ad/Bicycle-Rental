@@ -46,13 +46,24 @@ public class Welcome extends CustomerWindow{
             JMenuItem form = new JMenuItem("Contact form");
             contactMenu.add(ad);
             contactMenu.add(form);
-            JMenu logMenu = new JMenu("Login");
-            JMenu regMenu = new JMenu("Register");
+            
+            JMenu signMenu = new JMenu("Sign In / Sign Up");
+            JMenuItem login = new JMenuItem("Login");
+            login.addActionListener(e -> {
+                dispose();
+                new Login().display();
+            });
+            signMenu.add(login);
+            JMenuItem register = new JMenuItem("Register");
+            register.addActionListener(e -> {
+                dispose();
+                new Registration().display();
+            });
+            signMenu.add(register);
 
             mb.add(bikeMenu);
             mb.add(contactMenu);
-            mb.add(logMenu);
-            mb.add(regMenu);
+            mb.add(signMenu);
             gb.gridheight = 1;
             gb.gridwidth = 3;
             gb.gridx = 1;

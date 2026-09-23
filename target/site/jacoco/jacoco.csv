@@ -7,7 +7,7 @@ bicycle_rental_system,com.ra58ad.bicyclerentalsystem,StaffWindow,3,0,0,0,1,0,1,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,BRWindow,30,0,0,0,11,0,4,0,4,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Customer.Bike,15,0,0,0,5,0,1,0,1,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Customer.PaymentRecord,12,0,0,0,4,0,1,0,1,0
-bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Welcome,339,0,6,0,80,0,7,0,4,0
+bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Welcome,370,0,6,0,90,0,9,0,6,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,CustomerWindow.new MouseAdapter() {...},22,0,0,0,3,0,2,0,2,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,AuthWindow,3,0,0,0,1,0,1,0,1,0
 bicycle_rental_system,com.ra58ad.bicyclerentalsystem,Main,8,0,0,0,3,0,2,0,2,0
