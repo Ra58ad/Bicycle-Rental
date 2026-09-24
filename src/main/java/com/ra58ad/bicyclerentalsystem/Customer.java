@@ -62,10 +62,10 @@ public class Customer extends CustomerWindow {
         payment.setBackground(Color.DARK_GRAY);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(logout);
         buttonPanel.add(bikesOffered);
         buttonPanel.add(bikesRented);
         buttonPanel.add(payment);
+        buttonPanel.add(logout);
 
 
         mainPanel.add(bikesOfferedPanel, "BikesOffered");
